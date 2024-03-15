@@ -1,12 +1,34 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ page import="java.sql.DriverManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+
+<%!
+	//jsp 페이지의 멤버영역 
+	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String user="seshop";
+	String pass="1234";
+%>
 <%
 	//클라이언트가 전송한 파라미터를 꺼내보자 
 	String notice_idx = request.getParameter("notice_idx");
 
 	//게시물 한건의 정보를 보여주자 
 	String sql="select * from notice where notice_idx="+notice_idx;
-
 	out.print(sql);
+	
+
+	Connection con=null;
+	con = DriverManager.getConnection(url, user, pass);
+
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+	
+	pstmt=con.prepareStatement(sql); //쿼리문 준비  
+	rs = pstmt.executeQuery(); //select문 수행 후 표 받기
+	
+	rs.next(); //커서 한칸 전진
 %>
 <!DOCTYPE html>
 <html>
@@ -68,9 +90,9 @@ function del(){
 	차이점 : name은 중복을 허용하고 + 서버에 전송시 전송 파라미터 역할까지 수행
 				즉  http 상의 전송 시 데이터를 실어 나르는 변수 역할을 수행
 	-->
-    <input type="text" name="title" placeholder="제목입력..">
-    <input type="text" name="writer" placeholder="작성자 입력..">
-    <textarea name="content" placeholder="내용입력.." style="height:200px"></textarea>
+    <input type="text" name="title" value="<%=rs.getString("title")%>">
+    <input type="text" name="writer" value="<%=rs.getString("writer")%>">
+    <textarea name="content" style="height:200px"><%=rs.getString("content")%></textarea>
 
     <input type="button" value="수정하기" onClick="">
 	<input type="button" value="삭제하기" onClick="del();">
