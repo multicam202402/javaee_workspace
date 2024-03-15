@@ -90,7 +90,7 @@
       <%while(rs.next()){ %>
       <tr>
         <td><%=rs.getInt("notice_idx")%></td>
-        <td><%=rs.getString("title")%></td>
+        <td><a href="/notice/content.jsp"><%=rs.getString("title")%></a></td>
         <td><%=rs.getString("writer")%></td>
         <td><%=rs.getString("regdate")%></td>
         <td><%=rs.getString("hit")%></td>
