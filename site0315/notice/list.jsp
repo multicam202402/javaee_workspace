@@ -1,4 +1,39 @@
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ page import="java.sql.DriverManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%!
+	//jsp 페이지의 멤버영역 
+	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String user="seshop";
+	String pass="1234";
+%>
+<%
+	
+	Class.forName("oracle.jdbc.driver.OracleDriver");//드라이버 로드 
+	
+	Connection con=null; 
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+
+	con = DriverManager.getConnection(url, user, pass); //접속시도 
+
+	if(con ==null){
+		out.print("접속 실패");
+	}else{
+		out.print("접속 성공");
+	}
+	
+	String sql="select * from notice order by notice_idx desc";
+	out.print(sql);
+	
+	pstmt=con.prepareStatement(sql); //쿼리 준비 
+
+	//쿼리실행  executeQuery(); 반환 값은 rs 
+	rs = pstmt.executeQuery(); 
+
+%>
   <!DOCTYPE html>
   <html>
 
@@ -45,20 +80,20 @@
 
   <table>
     <tr>
-        <th>No</th>
+        <th>idx</th>
         <th>제목</th>
         <th>작성자</th>
         <th>등록일</th>
         <th>조회수</th>
       </tr>
       
-      <%for(int i=1;i<=10;i++){%>
+      <%while(rs.next()){ %>
       <tr>
-        <td>Jill</td>
-        <td>Smith</td>
-        <td>50</td>
-        <td>50</td>
-        <td>50</td>
+        <td><%=rs.getInt("notice_idx")%></td>
+        <td><%=rs.getString("title")%></td>
+        <td><%=rs.getString("writer")%></td>
+        <td><%=rs.getString("regdate")%></td>
+        <td><%=rs.getString("hit")%></td>
       </tr>
       <%}%>
 		<tr>
@@ -72,3 +107,8 @@
   </body>
 
   </html>
+  <%
+	if(rs!=null)rs.close();
+	if(pstmt!=null)pstmt.close();
+	if(con!=null)con.close();
+  %>

@@ -63,8 +63,18 @@
 		
 		if(result<1){
 			out.print("등록실패");
+			//욕하고, 다시 뒤로 돌아감
 		}else{
 			out.print("등록성공");
+			//리스트 보여주기 
+			out.print("<script>");
+			out.print("alert('등록성공');"); //out.print() 자바스크립트 출력시 반드시 세미콜론; 넣자
+											//않넣으면 문장이 아직 종결되지 않은 것으로 판단한다..
+			out.print("location.href='/notice/list.jsp';");
+			out.print("</script>");
 		}
 	}
+
+	if(pstmt!=null)pstmt.close();
+	if(con!=null)con.close();
 %>
