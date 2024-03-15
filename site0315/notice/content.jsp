@@ -74,7 +74,7 @@ input[type=button]:hover {
 //자바스크립트는 db연동을 직접 수행할 수 없으므로, 서버측에 삭제를 요청하자
 function del(){
 	//서버측의 삭제를 담당하는 jsp에게 요청을 시도 
-	location.href="/notice/del.jsp";
+	location.href="/notice/del.jsp?notice_idx=<%=notice_idx%>";
 }
 
 </script>
@@ -103,3 +103,8 @@ function del(){
 
 </body>
 </html>
+<%
+	if(rs!=null)rs.close();
+	if(pstmt!=null)pstmt.close();
+	if(con!=null)con.close();
+%>

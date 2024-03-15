@@ -48,7 +48,7 @@ function send(){
 	//폼양식을,  서버측에 존재하는 페이지인 regist.jsp 에게 전송해보자 
 	let form1 = document.getElementById("form1");
 	form1.action="/notice/regist.jsp"; //폼전송 대상 
-	//form1.method="post"; //서버에 어떤 요청을 할때, 전송할 데이터가 있다면  post 방식으로
+	form1.method="post"; //서버에 어떤 요청을 할때, 전송할 데이터가 있다면  post 방식으로
 									//요청을 시도해야 한다..(HTTP 프로토콜에서 그러하다)
 	form1.submit(); //전송 행위
 
