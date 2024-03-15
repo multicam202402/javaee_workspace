@@ -1,4 +1,13 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%
+	//클라이언트가 전송한 파라미터를 꺼내보자 
+	String notice_idx = request.getParameter("notice_idx");
+
+	//게시물 한건의 정보를 보여주자 
+	String sql="select * from notice where notice_idx="+notice_idx;
+
+	out.print(sql);
+%>
 <!DOCTYPE html>
 <html>
 <head>

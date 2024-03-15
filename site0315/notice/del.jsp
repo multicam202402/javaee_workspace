@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
-	out.print("내가 지워줄께");
+	String sql="delete notice where notice_idx=내가선택한 게시물의 idx";
+
+	out.print(sql);
+
 %>
