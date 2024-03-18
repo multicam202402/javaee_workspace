@@ -80,6 +80,25 @@ input[type=button]:hover {
 			form1.submit(); //전송
 		}
 	}	
+
+	function del(){
+		if(confirm("정말 삭제하시겠어요?")){
+			
+			//location.href="/gallery/delete.jsp?gallery_idx=<%=gallery_idx%>";
+
+			//파일명과 gallery_idx 두개이상을 전송해야 하므로, 아래쪽에 form태그에 
+			//히든으로 파라미터들이 준비되어 있으므로...기존 폼을 전송해버리자 
+			//삭제 요청시엔 파일을 전송하는 것이 아니므로, 
+			//복합데이터형식인 multipart/form-data 로 보낼 필요가 없다!!!
+			let form1 =  document.getElementById("form1");
+			
+			//프로그래밍 적으로 encoding 방식을 바꾸면 된다 
+			form1.encoding="";  //js 에서는 enctype 속성이 encoding으로 처리해야 함..
+			form1.method="post";
+			form1.action="/gallery/delete.jsp";
+			form1.submit();
+		}
+	}
 </script>
 </head>
 <body>
@@ -105,7 +124,7 @@ input[type=button]:hover {
 			<input type="file" name="photo">	
 			<p></p>
 			<input type="button" value="수정" onClick="edit()">
-			<input type="button" value="삭제">
+			<input type="button" value="삭제" onClick="del()">
 			<input type="button" value="목록" onClick="location.href='/gallery/list.jsp';">
 		</form>
 	</div>
