@@ -74,18 +74,17 @@ tr:nth-child(even) {
 			<th>조회수 </th>
 		</tr>
 		<%
-		
-		rs.next(); //커서 한칸 전진
+		while(rs.next()){ //커서 한칸 전진
 		%>	
 		<tr>
 			<td><%=rs.getInt("gallery_idx")%></td>
-			<td><%=rs.getString("filename")%></td>
+			<td><img width="45px" src="/data/<%=rs.getString("filename")%>"></td>
 			<td><%=rs.getString("title")%></td>
 			<td><%=rs.getString("writer")%></td>
 			<td><%=rs.getString("regdate")%></td>
 			<td><%=rs.getInt("hit")%></td>
 		</tr>
-
+		<%}%>
         <tr>
             <td colspan="6">
                 <button>글쓰기</button>
