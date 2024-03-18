@@ -93,6 +93,11 @@ input[type=button]:hover {
 			<input type="text" name="title" value="<%=rs.getString("title")%>"> 
 			<input type="text" name="writer" value="<%=rs.getString("writer")%>"> 
 			<textarea id="subject" name="content" style="height: 200px"><%=rs.getString("content")%></textarea>
+			
+			<p>
+				<img src="/data/<%=rs.getString("filename")%>" width="200px">									
+			</p>
+
 			<input type="file" name="photo">	
 			<p></p>
 			<input type="button" value="수정">
