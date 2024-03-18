@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@ input[type=text], select, textarea {
 	resize: vertical;
 }
 
-input[type=submit] {
+input[type=button] {
 	background-color: #04AA6D;
 	color: white;
 	padding: 12px 20px;
@@ -31,7 +32,7 @@ input[type=submit] {
 	cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type=button]:hover {
 	background-color: #45a049;
 }
 
@@ -48,19 +49,12 @@ input[type=submit]:hover {
 
 	<div class="container">
 		<form action="/action_page.php">
-			<label for="fname">First Name</label> <input type="text" id="fname"
-				name="firstname" placeholder="Your name.."> <label
-				for="lname">Last Name</label> <input type="text" id="lname"
-				name="lastname" placeholder="Your last name.."> <label
-				for="country">Country</label> <select id="country" name="country">
-				<option value="australia">Australia</option>
-				<option value="canada">Canada</option>
-				<option value="usa">USA</option>
-			</select> <label for="subject">Subject</label>
-			<textarea id="subject" name="subject" placeholder="Write something.."
-				style="height: 200px"></textarea>
+			
+			<input type="text" id="fname"name="firstname" placeholder="제목 입력.."> 
+			<input type="text" id="lname" name="lastname" placeholder="작성자 입력.."> 
+			<textarea id="subject" name="subject" placeholder="Write something.." style="height: 200px"></textarea>
 
-			<input type="submit" value="Submit">
+			<input type="button" value="업로드">
 		</form>
 	</div>
 
