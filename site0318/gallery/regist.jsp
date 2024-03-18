@@ -17,7 +17,8 @@
     factory.setSizeThreshold(maxSize);
 
     //저장 경로
-    factory.setRepository(new File("D:/javaee_workspace/site0318/data"));
+    String savePath="D:/javaee_workspace/site0318/data";
+    factory.setRepository(new File(savePath));
 
 
     //업로드를 처리하는 객체인 ServletFileUpload 객체를 생성하면서 설정 정보 객체를 
@@ -36,7 +37,18 @@
         }else{
             //반복문 내에 섞여 있는 FileItem 중, 바이너리 파일을 골라내어 , 서버에 저장처리..
             out.print("파일명은 "+item.getName()+"<br>"); //파일의 이름을 추출 
-        }
+            long time = System.currentTimeMillis();
+            String ext = item.getName().substring(item.getName().lastIndexOf(".")+1 , item.getName().length());
+
+            String filename=time+"."+ext; //새롭게  파일명 만듦
+            item.write(new File(savePath+"/"+filename)); //서버의 하드에 저장!!
+        }        
     }
+
+    //오라클 연동 
+    Class.forName("oracle.jdbc.driver.OracleDriver"); //드라이버 로드 
+    out.print("드라이버 로드 <br>");
+
+
 
 %>
