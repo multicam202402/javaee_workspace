@@ -72,11 +72,13 @@ input[type=button]:hover {
 </style>
 <script>
 	//입력 양식의 데이터들을 서버로 전송하자
-	function send(){
-		let form1 = document.getElementById("form1");
-		form1.action="/gallery/regist.jsp"; //서버측의 업로드 요청을 받을 url
-		form1.method="post";
-		form1.submit(); //전송
+	function edit(){
+		if(confirm("수정하시겠습니까?")){ //실수 방지
+			let form1 = document.getElementById("form1");
+			form1.action="/gallery/update.jsp"; //서버측의 업로드 요청을 받을 url
+			form1.method="post";
+			form1.submit(); //전송
+		}
 	}	
 </script>
 </head>
@@ -89,6 +91,8 @@ input[type=button]:hover {
 			생략시, 텍스트 데이터만 전송됨
 		-->
 		<form id="form1" enctype="multipart/form-data">
+			<input style="background-color: yellow;" type="hidden" name="filename" value="<%=rs.getString("filename")%>">
+			<input style="background-color: yellow;" type="hidden" name="gallery_idx" value="<%=rs.getInt("gallery_idx")%>">
 			
 			<input type="text" name="title" value="<%=rs.getString("title")%>"> 
 			<input type="text" name="writer" value="<%=rs.getString("writer")%>"> 
@@ -100,9 +104,9 @@ input[type=button]:hover {
 
 			<input type="file" name="photo">	
 			<p></p>
-			<input type="button" value="수정">
+			<input type="button" value="수정" onClick="edit()">
 			<input type="button" value="삭제">
-			<input type="button" value="목록">
+			<input type="button" value="목록" onClick="location.href='/gallery/list.jsp';">
 		</form>
 	</div>
 
