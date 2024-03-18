@@ -2,6 +2,7 @@
 <%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.io.File"%>
 <%
 
     /* 클라이언트가 전송한 제목, 바이너리 파일을 넘겨받아 서버의 원하는 경로에 저장하자
@@ -53,6 +54,15 @@
     out.print(ext);
 
     String filename= time+"."+ext;  // 23648923748.webp
+
+
+    //업로드 컴포넌트에 의해 이미 서버에 저장되어진 파일을 File 클래스로 얻어와서 
+    //이름을 새롭게 우리가 바꿔버리자!!
+    
+    File ori = new File(savePath+"/"+photo);//업로드 된 원본
+    boolean flag=ori.renameTo(new File(savePath+"/"+filename)); //원본을 지정된 file 인스턴스로 바꾸기
+    
+    out.print(flag);
 
     //파일명과 제목을 오라클에 넣자!!
     /*
