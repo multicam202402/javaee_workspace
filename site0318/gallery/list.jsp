@@ -79,7 +79,9 @@ tr:nth-child(even) {
 		<tr>
 			<td><%=rs.getInt("gallery_idx")%></td>
 			<td><img width="45px" src="/data/<%=rs.getString("filename")%>"></td>
-			<td><%=rs.getString("title")%></td>
+			<td>
+				<a href="/gallery/content.jsp?gallery_idx=<%=rs.getInt("gallery_idx")%>"><%=rs.getString("title")%></a>
+			</td>
 			<td><%=rs.getString("writer")%></td>
 			<td><%=rs.getString("regdate")%></td>
 			<td><%=rs.getInt("hit")%></td>
@@ -94,3 +96,8 @@ tr:nth-child(even) {
 
 </body>
 </html>
+<%
+	if(rs!=null)rs.close();
+	if(pstmt!=null)pstmt.close();
+	if(con!=null)con.close();
+%>
