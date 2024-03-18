@@ -42,19 +42,32 @@ input[type=button]:hover {
 	padding: 20px;
 }
 </style>
+<script>
+	//입력 양식의 데이터들을 서버로 전송하자
+	function send(){
+		let form1 = document.getElementById("form1");
+		form1.action="/gallery/regist.jsp"; //서버측의 업로드 요청을 받을 url
+		form1.method="post";
+		form1.submit(); //전송
+	}	
+</script>
 </head>
 <body>
 
 	<h3>Contact Form</h3>
 
 	<div class="container">
-		<form action="/action_page.php">
+		<!-- 텍스트 데이터와 바이너리 데이터가 섞여 있을때는 복합 데이터임을 알려줘야 함
+			생략시, 텍스트 데이터만 전송됨
+		-->
+		<form id="form1" enctype="multipart/form-data">
 			
-			<input type="text" id="fname"name="firstname" placeholder="제목 입력.."> 
-			<input type="text" id="lname" name="lastname" placeholder="작성자 입력.."> 
-			<textarea id="subject" name="subject" placeholder="Write something.." style="height: 200px"></textarea>
-
-			<input type="button" value="업로드">
+			<input type="text" name="title" placeholder="제목 입력.."> 
+			<input type="text" name="writer" placeholder="작성자 입력.."> 
+			<textarea id="subject" name="content" placeholder="Write something.." style="height: 200px"></textarea>
+			<input type="file" name="photo">	
+			<p></p>
+			<input type="button" value="업로드" onClick="send()">
 		</form>
 	</div>
 
