@@ -1,4 +1,28 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ page import="java.sql.DriverManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+	Connection con=null;
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
+	
+	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String user="seshop";
+	String pass="1234";
+
+	con=DriverManager.getConnection(url, user, pass);
+
+	String sql="select * from gallery order by gallery_idx desc"; //내림차순
+	pstmt=con.prepareStatement(sql); //쿼리수행 객체 준비
+
+	//쿼리실행(select문이므로, 쿼리 실행 후 그 결과표 반환되어 ResultSet 으로 받자)
+	rs = pstmt.executeQuery(); //select문의 경우 executeQuery() 사용해야 함 
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,28 +66,28 @@ tr:nth-child(even) {
 
 	<table>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Points</th>
+			<th>No</th>
+			<th>이미지</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>등록일</th>
+			<th>조회수 </th>
 		</tr>
+		<%
+		
+		rs.next(); //커서 한칸 전진
+		%>	
 		<tr>
-			<td>Jill</td>
-			<td>Smith</td>
-			<td>50</td>
-		</tr>
-		<tr>
-			<td>Eve</td>
-			<td>Jackson</td>
-			<td>94</td>
-		</tr>
-		<tr>
-			<td>Adam</td>
-			<td>Johnson</td>
-			<td>67</td>
+			<td><%=rs.getInt("gallery_idx")%></td>
+			<td><%=rs.getString("filename")%></td>
+			<td><%=rs.getString("title")%></td>
+			<td><%=rs.getString("writer")%></td>
+			<td><%=rs.getString("regdate")%></td>
+			<td><%=rs.getInt("hit")%></td>
 		</tr>
 
         <tr>
-            <td colspan="3">
+            <td colspan="6">
                 <button>글쓰기</button>
             </td>
         </tr>
