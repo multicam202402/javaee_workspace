@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -45,7 +46,7 @@ input[type=button]:hover {
 	//입력 양식의 데이터들을 서버로 전송하자
 	function send(){
 		let form1 = document.getElementById("form1");
-		form1.action="/gallery/regist.jsp"; //서버측의 업로드 요청을 받을 url
+		form1.action="/서블릿매핑주소"; //서버측의 업로드 요청을 받을 url
 		form1.method="post";
 		form1.submit(); //전송
 	}	
@@ -59,14 +60,13 @@ input[type=button]:hover {
 		<!-- 텍스트 데이터와 바이너리 데이터가 섞여 있을때는 복합 데이터임을 알려줘야 함
 			생략시, 텍스트 데이터만 전송됨
 		-->
-		<form id="form1" enctype="multipart/form-data">
+		<form id="form1">
 			
 			<input type="text" name="title" placeholder="제목 입력.."> 
 			<input type="text" name="writer" placeholder="작성자 입력.."> 
 			<textarea id="subject" name="content" placeholder="Write something.." style="height: 200px"></textarea>
-			<input type="file" name="photo">	
-			<p></p>
-			<input type="button" value="업로드" onClick="send()">
+			
+			<input type="button" value="글등록" onClick="send()">
 		</form>
 	</div>
 
