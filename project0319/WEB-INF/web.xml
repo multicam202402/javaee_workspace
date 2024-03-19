@@ -28,11 +28,20 @@
 		<servlet-name>testServlet</servlet-name>
 		<servlet-class>com.sds.project0319.test.MyServlet</servlet-class>
 	</servlet>
-
 	<!--  http://localhost:8888/servlet/test 치고 들어오면 위의 서블릿을 만나게 된다  -->
 	<servlet-mapping>
 		<servlet-name>testServlet</servlet-name>		
 		<url-pattern>/servlet/test</url-pattern> <!-- 가상의 url을 개발자가 정할 수 있다-->
+	</servlet-mapping>
+
+	<!--글등록 요청을 처리할 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>registServlet</servlet-name>
+		<servlet-class>com.sds.project0319.notice.RegistServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>registServlet</servlet-name>		
+		<url-pattern>/notice/regist</url-pattern> <!-- 가상의 url을 개발자가 정할 수 있다-->
 	</servlet-mapping>
 	
 </web-app>
