@@ -26,11 +26,32 @@ public class MyServlet extends HttpServlet{
 		//클라이언트의 웹브라우저에 출력할 메시지 등록 
 		//서블릿은 클래스기반으로 개발자가 일일이 코드를 작성해야 하므로, 내장객체 따위는 지원되지
 		//않는다!!
+			
+		//jsp 에서의 page  지시영역에서 명시된  contentType과 charset을 여기서도 진행해야함
+		response.setContentType("text/html"); // contentType="text/html;"
+		response.setCharacterEncoding("utf-8"); //contentType=";charset=utf-8"
 
 		//응답 객체가 보유한 출력 스트림을 얻기
 		PrintWriter out=response.getWriter();	
 
 		//응답객체가 보유한 출력 스트림에 문자열을 누적시켜놓자!
-		out.print("My First Servlet<br> success !!");
+		out.print("나의 첫 Servlet<br> success !!");
+	}
+
+	//이 메서드는 클라이언트가 post 방식으로 요청을 시도할때 동작함 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		response.setContentType("text/html"); //jsp의 contentType="text/html;" 동일
+		response.setCharacterEncoding("utf-8"); //jsp의 contentType=";charset=utf-8" 동일
+		
+		//파라미터의 인코딩 처리 
+		request.setCharacterEncoding("utf-8");
+
+		//클라이언트가 전송한 파라미터를 받아보자 
+		String title = request.getParameter("title");
+		
+		PrintWriter out = response.getWriter(); //response 객체로부터 스트림 얻기			
+		out.print("당신이 전송한 제목은 "+title); //여기서 웹브라우저에 출력이 발생하는게 아니라
+												//단지 response 객체가 보유한 출력 스트림에 , 추후 
+												//톰켓이 생성할 html 컨텐츠에 사용될 문자열을 모으는 것임
 	}
 }
