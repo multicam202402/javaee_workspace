@@ -8,6 +8,17 @@ import java.io.*;
 //서블릿이란? 오직 서버에서만 실행될 수 있는 클래스 
 
 public class ListServlet extends HttpServlet{
+	
+	//생명주기 메서드 중, 초기화 메서드를 이용하여, web.xml에서 넘긴 파라미터정보를
+	//보유해보자 
+	String user;
+
+	public void init(ServletConfig config){
+		user=config.getInitParameter("user");
+		//tomcat의 콘솔(터미널)에 출력하자 , log파일 출력에도 출력됨
+		System.out.println("초기 파라미터 값은 "+user);
+	}
+
 	//목록 요청을 처리하는 서블릿이므로, get방식의 요청을 처리하자 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		//게시판 목록 요청이므로, 오라클을 연동하자 
@@ -34,6 +45,7 @@ public class ListServlet extends HttpServlet{
 		out.print("<td>regdate</td");
 		out.print("</tr>");
 		out.print("</table>");
+		out.print("초기화 파라미터 값은 "+user);
 		out.print("</body>");
 		out.print("</html>");	
 	}

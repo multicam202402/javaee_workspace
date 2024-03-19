@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%!
+	//선언부?  멤버변수,멤버메서드 작성 영역 
+	int price=56;
+%>
 <!DOCTYPE html>
 <html lang="en">
  <head>

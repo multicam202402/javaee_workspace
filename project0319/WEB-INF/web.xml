@@ -48,6 +48,10 @@
 	<servlet>
 		<servlet-name>listServlet</servlet-name>
 		<servlet-class>com.sds.project0319.notice.ListServlet</servlet-class>
+		<init-param>
+			<param-name>user</param-name>
+			<param-value>1234</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>listServlet</servlet-name>		
