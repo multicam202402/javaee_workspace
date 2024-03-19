@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest; // 요청 객체 
 import javax.servlet.http.HttpServletResponse; //응답 객체 
+import java.io.PrintWriter;
 
 //이 클래스는 로컬 pc가 아니라, 오직 서버측에서만 가동 될 수 있는 
 //클래스이며, 이러한 목적의 javaEE기반의 클래스를 가리켜 서블릿(Servlet)이라 한다
@@ -22,6 +23,14 @@ public class MyServlet extends HttpServlet{
 	//jsp에서의 request 내장객체의 자료형 : HttpServletRequest 였다.
 	//jsp에서의 response 내장객체의 자료형 : HttpServletResponse 였다.
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//클라이언트의 웹브라우저에 출력할 메시지 등록 
+		//서블릿은 클래스기반으로 개발자가 일일이 코드를 작성해야 하므로, 내장객체 따위는 지원되지
+		//않는다!!
 
+		//응답 객체가 보유한 출력 스트림을 얻기
+		PrintWriter out=response.getWriter();	
+
+		//응답객체가 보유한 출력 스트림에 문자열을 누적시켜놓자!
+		out.print("My First Servlet<br> success !!");
 	}
 }
