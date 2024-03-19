@@ -46,6 +46,28 @@ public class RegistServlet extends HttpServlet{
 
 			if(con !=null){
 				out.print("접속 성공");
+
+				String sql="insert into notice(notice_idx, title, writer,content)";
+				sql+=" values(seq_notice.nextval,? ,?, ?)";
+				
+				pstmt = con.prepareStatement(sql);//쿼리 객체 생성
+				pstmt.setString(1, title); //첫번째 물음표는 제목
+				pstmt.setString(2, writer); //두번째 물음표는 작성자
+				pstmt.setString(3, content); //세번째 물음표는 내용 
+
+				int result = pstmt.executeUpdate(); //쿼리실행 후 row count 반환 
+				
+				out.print("<script>");
+				if(result > 0){
+					out.print("alert('등록성공');");
+					out.print("location.href='/notice/list';"); //클라이언트인 브라우저로 하여금 
+																			//지정한 url로 다시 접속을 유도함
+				}else{
+					out.print("alert('등록실패');");
+					out.print("history.back();");
+				}							
+				out.print("</script>");
+	
 			}else{
 				out.print("접속 실패");
 			}
@@ -53,8 +75,23 @@ public class RegistServlet extends HttpServlet{
 			out.print("드라이버 로드 실패");
 		}catch(SQLException e){
 			e.printStackTrace(); //톰켓 서버의 로그에 에러 원인 출력 
+		}finally{
+			if(pstmt!=null){
+				try{
+					pstmt.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			if(con!=null){
+				try{
+					con.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
 		}
+		
+	} //doPost() 
 
-	}
-
-}
+}//class
