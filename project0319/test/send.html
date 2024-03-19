@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+
+  <title>Document</title>
+  <script>
+  	function send(){
+		//폼에 작성된 내용을 서버로 전송해보자 (요청하면서 파라미터를 전송해보자)
+		let frm = document.querySelector("form");
+		frm.action="";//서버 측 url
+		frm.submit(); //전송
+	}
+  </script>
+ </head>
+ <body>
+	<!--비록 form 태그를 사용하더라도, 개발자가 아무것도 명시하지 않으면 디폴트는 GET 방식이 됨-->
+	<form>	
+		<input type="text" placeholder="전송할 제목 입력">  
+		<button onClick="send()">전송</button>
+	</form>
+
+ </body>
+</html>

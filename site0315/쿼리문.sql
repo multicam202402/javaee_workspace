@@ -54,3 +54,36 @@ SELECT * FROM notice WHERE notice_idx=4;
 
 
 
+
+
+
+
+CREATE TABLE  gallery(
+	gallery_idx  number PRIMARY KEY 
+	, title varchar2(100)
+	, writer varchar2(40)
+	, content clob 
+	, regdate  date  DEFAULT sysdate 
+	, hit  number  DEFAULT 0 
+	, filename  varchar2(17)
+);
+
+CREATE SEQUENCE  seq_gallery
+INCREMENT BY 1
+START WITH 1;
+
+SELECT * FROM gallery ORDER BY gallery_idx desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
