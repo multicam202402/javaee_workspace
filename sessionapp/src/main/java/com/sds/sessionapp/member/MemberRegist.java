@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sds.sessionapp.common.EncryptionManager;
+import com.sds.sessionapp.common.MailService;
 
 
 public class MemberRegist extends HttpServlet{
@@ -21,6 +22,7 @@ public class MemberRegist extends HttpServlet{
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String user="seshop";
 	String password="1234";
+	MailService mailService=new MailService();
 	
 	//회원가입 폼으로부터 전송되는 파라미터들은 Post 방식으로 요청이 되므로, doXXX형 메서드 중 doPost()
 	//로 처리하자 
@@ -88,6 +90,7 @@ public class MemberRegist extends HttpServlet{
 					out.print("location.href='/member/login.jsp';"); //로그인 폼으로 재접속을 유도하자
 					
 					//이메일 발송  
+					mailService.send(name, email);
 					
 				}else {
 					out.print("alert('회원가입 실패');");

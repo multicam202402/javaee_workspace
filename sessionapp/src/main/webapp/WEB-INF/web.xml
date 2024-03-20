@@ -36,6 +36,16 @@
 		<servlet-name>registMember</servlet-name>
 		<url-pattern>/member/regist</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 로그인 요청 서블릿 매핑  -->
+	<servlet>
+		<servlet-name>loginServlet</servlet-name>
+		<servlet-class>com.sds.sessionapp.member.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginServlet</servlet-name>
+		<url-pattern>/member/auth</url-pattern>
+	</servlet-mapping>
 		
 </web-app>
 
