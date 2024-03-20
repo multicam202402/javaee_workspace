@@ -113,18 +113,18 @@ body {
 		<!-- 광고수신 여부 -->
 		<div class="input-container">
 			<i class="fa fa-envelope icon"></i> 
-			<input type="radio" name="receive">예
-			<input type="radio" name="receive">아니오
+			<input type="radio" name="receive" value="1">예
+			<input type="radio" name="receive" value="0">아니오
 		</div>
 		
 		<!-- 보유 스킬 -->
 		<div class="input-container">
 			<i class="fa fa-envelope icon"></i> 
-			<input type="checkbox" name="skill">Java
-			<input type="checkbox" name="skill">Spring
-			<input type="checkbox" name="skill">Oracle
-			<input type="checkbox" name="skill">Mybatis
-			<input type="checkbox" name="skill">Hibernate
+			<input type="checkbox" name="skill" value="java">Java
+			<input type="checkbox" name="skill" value="spring">Spring
+			<input type="checkbox" name="skill" value="oracle">Oracle
+			<input type="checkbox" name="skill" value="mybatis">Mybatis
+			<input type="checkbox" name="skill" value="hibernate">Hibernate
 		</div>
 
 

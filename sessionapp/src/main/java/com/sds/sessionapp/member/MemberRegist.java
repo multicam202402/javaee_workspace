@@ -14,6 +14,34 @@ public class MemberRegist extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("요청 감지"); //콘솔에 출력 
+		
+		
+		//클라이언트가 전송한 입력 양식의 파라미터들 받기
+		request.setCharacterEncoding("utf-8"); //파라미터의 인코딩 처리(한글 안깨지게)
+		
+		String id 			= request.getParameter("id"); //아이디
+		String pass 		= request.getParameter("pass"); //비밀번호
+		String name 		= request.getParameter("name"); //이름 
+		String email 		= request.getParameter("email"); //이메일 
+		String receive 	= request.getParameter("receive"); //광고 메일 수신 여부
+		
+		System.out.println("id = "+id);
+		System.out.println("pass = "+pass);
+		System.out.println("name = "+name);
+		System.out.println("email = "+email);
+		System.out.println("receive = "+receive);
+		
+		String[] skillArray = request.getParameterValues("skill");
+		
+		for(String skill  : skillArray) {
+			System.out.println(skill);
+		}
+		
+		//비밀번호에 대한 암호화 해시값 처리 
+		
+		//오라클에 넣기 
+		
+		//회원가입 축하 메일 발송 
 	}
 }
 
