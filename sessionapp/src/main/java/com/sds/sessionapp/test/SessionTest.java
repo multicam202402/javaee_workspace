@@ -48,5 +48,12 @@ public class SessionTest extends HttpServlet{
 		session.setAttribute("hobby", "프로그래밍");
 		session.setAttribute("age", 20);
 		
+		//클라이언트로 하여금 서버 측의 또 다른 jsp를 요청하도록 유도하자 
+		out.print("<script>");
+		out.print("location.href='/test/mypage.jsp';");
+		out.print("</script>");
 	}
 }
+
+
+
