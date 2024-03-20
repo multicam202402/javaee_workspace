@@ -86,7 +86,9 @@ public class MemberRegist extends HttpServlet{
 				if(result>0) {
 					out.print("alert('회원가입 성공');");
 					out.print("location.href='/member/login.jsp';"); //로그인 폼으로 재접속을 유도하자
-					//이메일 발송 
+					
+					//이메일 발송  
+					
 				}else {
 					out.print("alert('회원가입 실패');");
 					out.print("history.back();"); //다시 회원가입 폼으로 돌아감
