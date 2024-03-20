@@ -20,7 +20,7 @@ public class MemberRegist extends HttpServlet{
 	String driver="oracle.jdbc.driver.OracleDriver";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String user="seshop";
-	String pass="1234";
+	String password="1234";
 	
 	//회원가입 폼으로부터 전송되는 파라미터들은 Post 방식으로 요청이 되므로, doXXX형 메서드 중 doPost()
 	//로 처리하자 
@@ -63,7 +63,7 @@ public class MemberRegist extends HttpServlet{
 		
 		try {
 			Class.forName(driver); //드라이버 로드 
-			con = DriverManager.getConnection(url, user, pass); //접속
+			con = DriverManager.getConnection(url, user, password); //접속
 			if(con ==null) {
 				System.out.println("접속 실패");
 			}else {
