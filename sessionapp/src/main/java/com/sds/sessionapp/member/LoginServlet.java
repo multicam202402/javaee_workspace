@@ -85,6 +85,12 @@ public class LoginServlet extends HttpServlet{
 					//다 채워진 한 사람에 대한 정보를, 세션 객체에 담아놓자. 그래야 회원서비스를 제공할 수 
 					//있다..
 					session.setAttribute("member", member); //회원 정보를 담는다...
+					
+					out.print("<script>");
+					out.print("alert('로그인 성공');");
+					out.print("location.href='/member/mypage.jsp';"); //로그인 폼으로 돌아가게 처리 
+					out.print("</script>");
+					
 				}else {
 					out.print("<script>");
 					out.print("alert('로그인 정보가 올바르지 않습니다.');");
@@ -97,7 +103,33 @@ public class LoginServlet extends HttpServlet{
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) { 
+					e.printStackTrace();
+				}
+			}
+			
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) { 
+					e.printStackTrace();
+				}
+			}
+			
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) { 
+					e.printStackTrace();
+				}
+			}
+			
+		}
 		
 		
 	}
