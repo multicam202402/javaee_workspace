@@ -68,8 +68,28 @@ public class LoginServlet extends HttpServlet{
 					//이 회원만의 서비스를 제공...서버가 이 회원을 계속 기억하는 것처럼 해주자..
 					//세션객체 얻기 
 					HttpSession session=request.getSession(); //이 요청과 관련된 세션을 얻는다!!
-
-					//session.setAttribute(sql, session); //회원 정보를 담는다...
+					
+					//세션 객체에 , 회원정보를 낱개로 파편화 시켜서 담지말고, 좀더 객체지향 적 사고방식을
+					//반영하여, 클래스의 인스턴스를 담아보자!!
+					//실제 데이터는 현재 rs에 들어있으므로, rs의 커서를한칸 전진시켜서  rs가 보유한 데이터를
+					//DTO 인스턴스 1개를 만들어서 setter()  메서드를 호출하여 값을 넣어주자!! 
+					Member member = new Member(); //empty 상태의 DTO 생성
+					
+					member.setId(rs.getString("id")); //아이디 값을 dto에 넣기 
+					member.setPass(rs.getString("pass")); //비밀번호 넣기
+					member.setName(rs.getString("name"));//이름 dto에 넣기
+					member.setEmail(rs.getString("email")); //이메일 dto에 넣기
+					member.setReceive(rs.getInt("receive")); //수신 여부 dto에 넣기
+					member.setRegdate(rs.getString("regdate")); //가입일 dto에 넣기
+					
+					//다 채워진 한 사람에 대한 정보를, 세션 객체에 담아놓자. 그래야 회원서비스를 제공할 수 
+					//있다..
+					session.setAttribute("member", member); //회원 정보를 담는다...
+				}else {
+					out.print("<script>");
+					out.print("alert('로그인 정보가 올바르지 않습니다.');");
+					out.print("history.back();"); //로그인 폼으로 돌아가게 처리 
+					out.print("</script>");
 				}
 				
 			}
