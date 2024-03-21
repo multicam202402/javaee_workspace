@@ -21,7 +21,17 @@
 	<servlet-mapping>
 		<servlet-name>registServlet</servlet-name>
 		<url-pattern>/news/regist</url-pattern>
-	</servlet-mapping>	
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>writeServlet</servlet-name>
+		<servlet-class>com.sds.newsapp.news.WriteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>writeServlet</servlet-name>
+		<url-pattern>/news/write</url-pattern>
+	</servlet-mapping>
+		
 </web-app>
 
 
