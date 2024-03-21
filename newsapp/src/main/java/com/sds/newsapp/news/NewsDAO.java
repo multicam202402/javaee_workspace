@@ -150,18 +150,32 @@ public class NewsDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		String sql="select * from news where news_idx=?";
+		News news=null;
 		
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, pass);
+			
+			String sql="select * from news where news_idx=?";
+			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, news_idx);
 			rs=pstmt.executeQuery(); //select문 수행 후 rs반환
 			
 			//게시물 1건의 정보가 rs에 들어있으므로, rs 는 곧 닫히게 되면 , 외부에서 rs받은자가 
 			//사용할 수 없게 되는데, 따라서 rs에 들어있는 레코드 한건을 DTO 인스턴스 1개에 옮겨심고
-			//rs 는 죽여버리자 
+			//rs 는 죽여버리자
+			
+			if(rs.next()) {//레코드가 있다면...
+				news = new News(); //텅~~ 빈 뉴스 DTO 한개 생성하기(빈 깡통)
+				//rs의 데이터를 옮겨심자!!!
+				news.setNews_idx(rs.getInt("news_idx"));
+				news.setTitle(rs.getString("title"));
+				news.setWriter(rs.getString("writer"));
+				news.setContent(rs.getString("content"));
+				news.setRegdate(rs.getString("regdate"));
+				news.setHit(rs.getInt("hit"));
+			}
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -191,6 +205,7 @@ public class NewsDAO {
 				}
 			}			
 		}
+		return news;
 	} 
 }
 
