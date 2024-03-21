@@ -1,10 +1,18 @@
+<%@page import="com.sds.newsapp.news.News"%>
+<%@page import="com.sds.newsapp.news.NewsDAO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%! 
+	NewsDAO newsDAO = new NewsDAO();
+%>
 <%
 	//클라이언트가 전송한 news_idx 파라미터를 받아서, 
 	//DAO에게 한건 가져오게 시키자!!!
-	String news_idx = request.getParameter("news_idx");
+	String news_idx = request.getParameter("news_idx");  // "3"
 	out.print("클라이언트가 전송한 idx 값은"+news_idx);
+	
+	//ResultSet 대신 , News DTO로 게시물 1건 반환 받음
+	News news = newsDAO.select(Integer.parseInt(news_idx)); 
 %>
 <!DOCTYPE html>
 <html>
@@ -79,9 +87,9 @@ input[type=button]:hover {
 
 	<div class="container">
 		<form>
-			<input type="text" name="title" placeholder="기사 제목.."> 
-			<input type="text" name="writer" placeholder="작성자..">
-			<textarea id="content" name="content" placeholder="내용.." style="height: 400px"></textarea>
+			<input type="text" name="title" value="<%=news.getTitle()%>"> 
+			<input type="text" name="writer" value="<%=news.getWriter()%>">
+			<textarea id="content" name="content" placeholder="내용.." style="height: 400px"><%=news.getContent()%></textarea>
 
 			<input type="button" value="수정">
 			<input type="button" value="삭제">
