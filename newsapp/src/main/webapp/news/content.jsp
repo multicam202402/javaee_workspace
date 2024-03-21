@@ -57,7 +57,7 @@ input[type=button]:hover {
 	padding: 20px;
 }
 </style>
-<title>뉴스 게시판</title>
+<%@ include file="../inc/head.jsp" %>
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
