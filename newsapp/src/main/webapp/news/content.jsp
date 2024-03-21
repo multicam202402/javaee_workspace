@@ -71,12 +71,22 @@ input[type=button]:hover {
 	$(function(){
 		$('#content').summernote();
 		
-		$("input[type='button']").click(function(){
-			$("form").attr({
-				action:"/news/write",
-				method:"post"
-			});
-			$("form").submit();//전송
+		$("#bt_del").click(function(){
+			
+		});
+		
+		$("#bt_list").click(function(){
+			location.href="/news/list.jsp";
+		});
+		
+		$("#bt_edit").click(function(){ //수정 버튼 누르면..
+			if(confirm("수정하시겠어요?")){
+				$("form").attr({
+					action:"/news/edit",
+					method:"post"
+				});
+				$("form").submit();//전송
+			}
 		});
 	});
 </script>
@@ -87,13 +97,15 @@ input[type=button]:hover {
 
 	<div class="container">
 		<form>
+			<input type="hidden" name="news_idx" value="<%=news.getNews_idx()%>">
+			 
 			<input type="text" name="title" value="<%=news.getTitle()%>"> 
 			<input type="text" name="writer" value="<%=news.getWriter()%>">
 			<textarea id="content" name="content" placeholder="내용.." style="height: 400px"><%=news.getContent()%></textarea>
 
-			<input type="button" value="수정">
-			<input type="button" value="삭제">
-			<input type="button" value="목록">
+			<input type="button" value="수정" id="bt_edit">
+			<input type="button" value="삭제" id="bt_del">
+			<input type="button" value="목록" id="bt_list">
 		</form>
 	</div>
 
