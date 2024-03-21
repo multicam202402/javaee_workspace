@@ -72,7 +72,10 @@ input[type=button]:hover {
 		$('#content').summernote();
 		
 		$("#bt_del").click(function(){
-			
+			if(confirm("삭제하시겠어요?")){
+				//delete news where news_idx=3
+				location.href="/news/delete?news_idx=3";
+			}
 		});
 		
 		$("#bt_list").click(function(){
