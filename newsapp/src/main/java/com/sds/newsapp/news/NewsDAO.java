@@ -142,6 +142,56 @@ public class NewsDAO {
 		}
 		return list; //(DTO가 담겨진)리스트 반환 
 	}
+	
+	
+	
+	//게시물 한건 가져오기 
+	public News select(int news_idx) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from news where news_idx=?";
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, pass);
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, news_idx);
+			rs=pstmt.executeQuery(); //select문 수행 후 rs반환
+			
+			//게시물 1건의 정보가 rs에 들어있으므로, rs 는 곧 닫히게 되면 , 외부에서 rs받은자가 
+			//사용할 수 없게 되는데, 따라서 rs에 들어있는 레코드 한건을 DTO 인스턴스 1개에 옮겨심고
+			//rs 는 죽여버리자 
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs !=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt !=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con !=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+	} 
 }
 
 

@@ -61,7 +61,9 @@ tr:nth-child(even) {
 		<%//꺼낼때는 getter로 꺼내자 %>
 		<tr>
 			<td>Jill</td>
-			<td><%=news.getTitle() %></td>
+			<td>
+				<a href="/news/content.jsp"><%=news.getTitle() %></a>
+			</td>
 			<td><%=news.getWriter() %></td>
 			<td><%=news.getRegdate() %></td>
 			<td><%=news.getHit()%></td>
