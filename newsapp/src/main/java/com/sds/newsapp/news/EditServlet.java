@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 //수정 요청을 처리하는 서블릿 정의 
 public class EditServlet extends HttpServlet{
+	NewsDAO newsDAO;
+	
+	public EditServlet() {
+		newsDAO = new NewsDAO();
+	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//파라미터를 넘겨받아, 오라클 업데이트 시키자..그리고 상세 페이지 보여주자 
@@ -17,7 +22,6 @@ public class EditServlet extends HttpServlet{
 		
 		request.setCharacterEncoding("utf-8"); //다국어 깨지지 않도록 인코딩
 		
-		//update news set title=?, writer=?, content=? where news_idx=?
 		String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("content");
@@ -27,6 +31,18 @@ public class EditServlet extends HttpServlet{
 		System.out.println("writer is "+writer);
 		System.out.println("content is "+content);
 		System.out.println("news_idx is "+news_idx);
+		
+		//update news set title=?, writer=?, content=? where news_idx=?
+		
+		//DAO에게 update수행 시키자!!
+		News news  = new News(); //비어있는 DTO 1개 생성
+		news.setNews_idx(Integer.parseInt(news_idx)); //pk 대입 
+		news.setTitle(title);
+		news.setWriter(writer);
+		news.setContent(content);
+		
+		newsDAO.update(news);
+		
 		
 	}
 }
