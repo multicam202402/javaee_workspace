@@ -8,7 +8,7 @@
 <%
 	//클라이언트가 전송한 news_idx 파라미터를 받아서, 
 	//DAO에게 한건 가져오게 시키자!!!
-	String news_idx = request.getParameter("news_idx");  // "3"
+	String news_idx = request.getParameter("news_idx");  // null
 	out.print("클라이언트가 전송한 idx 값은"+news_idx);
 	
 	//ResultSet 대신 , News DTO로 게시물 1건 반환 받음
