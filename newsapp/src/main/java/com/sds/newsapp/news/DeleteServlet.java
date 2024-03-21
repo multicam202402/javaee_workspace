@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 //직접 db를 삭제하지 않고, DAO에게 시킨다..
 public class DeleteServlet extends HttpServlet{
 	
+	NewsDAO newsDAO;
+		
+	public DeleteServlet() {
+		newsDAO = new NewsDAO();
+	}
+	
 	//파라미터가 한개밖에 없고, get방식으로 전달되고 있으므로  doGet() 재정의 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
@@ -21,10 +27,20 @@ public class DeleteServlet extends HttpServlet{
 		String news_idx = request.getParameter("news_idx");
 		System.out.println("삭제할 news_idx 는 "+news_idx);
 		
-		//db 삭제 
+		//DAO 에게 db 삭제 시키자 
+		int result = newsDAO.delete(Integer.parseInt(news_idx));
 		
-		
+		out.print("<script>");
+		if(result >0){
+			out.print("alert('삭제 성공');");
+			out.print("location.href='/news/list.jsp';");
+		}else {
+			out.print("alert('삭제 실패');");
+			out.print("history.back();");
+		}
+		out.print("</script>");
 	}
+	
 }
 
 
