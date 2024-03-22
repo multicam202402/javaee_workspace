@@ -44,12 +44,15 @@ public class ListServlet extends HttpServlet{
 		
 		for(int i=0;i<list.size();i++) { 
 			//댓글 수 만큼 반복문 돌리되,  size-1 보다 작은 동안 만 쉼표로 구분해주고, 반대경우 쉼표X
+			
+			Comments comments = list.get(i);//리스트에서 DTO 1건 꺼내기
+			
 			sb.append("{");
-			sb.append("\"comments_idx\": 1,");
-			sb.append("\"msg\" : \"기사 내용 보기 싫다\",");
-			sb.append("\"cwriter\" : \"배트맨\",");
-			sb.append("\"cregdate\" : \"2024-03-22 11:52:52.000\", ");
-			sb.append("\"news_idx\" : 8");
+			sb.append("\"comments_idx\": "+comments.getComments_idx()+",");
+			sb.append("\"msg\" : \""+comments.getMsg()+"\",");
+			sb.append("\"cwriter\" : \""+comments.getCwriter()+"\",");
+			sb.append("\"cregdate\" : \""+comments.getCregdate()+"\", ");
+			sb.append("\"news_idx\" : "+comments.getNews_idx()+"");
 			if( i < list.size()-1) {
 				sb.append("},");
 			}else {
