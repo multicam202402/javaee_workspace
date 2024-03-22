@@ -99,7 +99,9 @@ input[type=button]:hover {
 			
 			//서버의 응답이 성공적으로 들어오면...
 			xhttp.onreadystatechange=function(){
-				
+				if(this.readyState==4 && this.status==200){ //요청이 도달하고, 서버에서 요청을 정상적으로 처리햇다면...
+					alert(this.responseText);
+				}
 			}
 			
 			//통신 전 헤더 구성하기 
