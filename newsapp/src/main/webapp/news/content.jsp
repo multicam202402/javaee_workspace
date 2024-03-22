@@ -68,6 +68,7 @@ input[type=button]:hover {
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script type="text/javascript">
+	let obj;
 	
 	//이 함수는 최최에 onLoad 시에도 호출되어야 하지만, 글 등록시에도 비동기방식으로 목록을 가져와 
 	//갱신해야 하기 때문에 ajax 로 처리한다..(즉 새로고침 없이 목록이 갱신되어야 하므로...)
@@ -76,7 +77,28 @@ input[type=button]:hover {
 		xhttp.onreadystatechange=function(){
 			if(this.readyState==4 && this.status==200){
 				//댓글 목록을 처리~~~~
+				console.log("서버로부터 받은 데이터는 " , this.responseText);
+				//넘겨받은 문자열을 대상으로 과연 분석이 가능할까?? 예를 들어 총 게시물 수...등.. 
+				//console.log(this.responseText.length);
+				//결론, json은 문자열이므로, 객체 자체가 아니다,,따라서 분석할수 없다..예) 배열의 길이
+				//배열0번째 들어있는 객체가 가진 msg 변수값 .
+				//해결책)  넘어온 문자열을 분석하여 객체화 시키면 된다 , 이 기능은 js 의 JSON 내장객체 가 지원
 				
+				obj=JSON.parse(this.responseText);
+				
+				//분석한 이후부터는, 서버로부터 넘겨 받은 문자열은 지금부터 객체로 취급가능.. 
+				console.log("게시물 수는 ", obj.commentsList.length);
+				
+				//obj.commentList만큼, 테이블 태그를 동적으로 출력해보자
+				let tag="<table width=\"100%\" border=\"1px\">";
+				tag+="<tr>";
+				tag+="<td>댓글 메시지</td>";
+				tag+="<td>작성자</td>";
+				tag+="<td>등록일</td>";
+				tag+="</tr>";
+				tag+="</table>";
+				
+				$("#comments_container").html(tag);
 			}
 		}
 		xhttp.open("GET", "/comments/list?news_idx=<%=news_idx%>");
@@ -164,26 +186,7 @@ input[type=button]:hover {
 	</div>
 	
 	<!--댓글 목록 -->
-	<div class="container">
-		<table width="100%">
-			<tr>
-				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
-				<td>홍길동</td>
-				<td>2024-03-23</td>
-			</tr>
-			<tr>
-				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
-				<td>홍길동</td>
-				<td>2024-03-23</td>
-			</tr>
-			<tr>
-				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
-				<td>홍길동</td>
-				<td>2024-03-23</td>
-			</tr>
-			
-		</table>
-	</div>
+	<div class="container" id="comments_container"></div>
 	
 </body>
 </html>
