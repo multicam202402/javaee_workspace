@@ -84,13 +84,31 @@ input[type=button]:hover {
 		
 		$("#bt_edit").click(function(){ //수정 버튼 누르면..
 			if(confirm("수정하시겠어요?")){
-				$("form").attr({
+				$("#form1").attr({
 					action:"/news/edit",
 					method:"post"
 				});
-				$("form").submit();//전송
+				$("#form1").submit();//전송
 			}
 		});
+		
+		//댓글 등록 요청 
+		$("#bt_reply").click(function(){
+			//비동기 통신으로 전송...
+			let xhttp = new XMLHttpRequest(); //비동기 백그라운드 통신 객체 생성
+			
+			//서버의 응답이 성공적으로 들어오면...
+			xhttp.onreadystatechange=function(){
+				
+			}
+			
+			//통신 전 헤더 구성하기 
+			xhttp.open("POST", "/comments/regist");
+			
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send();//파라미터는 이따가 보내자
+		});
+		
 	});
 </script>
 </head>
@@ -99,7 +117,7 @@ input[type=button]:hover {
 	<h3>뉴스 상세보기</h3>
 
 	<div class="container">
-		<form>
+		<form id="form1">
 			<input type="hidden" name="news_idx" value="<%=news.getNews_idx()%>">
 			 
 			<input type="text" name="title" value="<%=news.getTitle()%>"> 
@@ -114,9 +132,11 @@ input[type=button]:hover {
 	
 	<!--댓글 등록 폼  -->
 	<div class="container">
-		<input type="text" style="width:70%" placeholder="댓글을 입력하세요...">			
-		<input type="text" style="width:15%" placeholder="작성자">			
-		<input type="button" value="등록" id="bt_reply" style="width:10%">
+		<form id="form2">
+			<input type="text" style="width:70%" placeholder="댓글을 입력하세요...">			
+			<input type="text" style="width:15%" placeholder="작성자">			
+			<input type="button" value="등록" id="bt_reply" style="width:10%">
+		</form>
 	</div>
 	
 	<!--댓글 목록 -->
