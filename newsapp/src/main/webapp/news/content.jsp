@@ -111,6 +111,38 @@ input[type=button]:hover {
 			<input type="button" value="목록" id="bt_list">
 		</form>
 	</div>
-
+	
+	<!--댓글 등록 폼  -->
+	<div class="container">
+		<input type="text" style="width:70%" placeholder="댓글을 입력하세요...">			
+		<input type="text" style="width:15%" placeholder="작성자">			
+		<input type="button" value="등록" id="bt_reply" style="width:10%">
+	</div>
+	
+	<!--댓글 목록 -->
+	<div class="container">
+		<table width="100%">
+			<tr>
+				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
+				<td>홍길동</td>
+				<td>2024-03-23</td>
+			</tr>
+			<tr>
+				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
+				<td>홍길동</td>
+				<td>2024-03-23</td>
+			</tr>
+			<tr>
+				<td>의료 파업이 장기화될 조짐을 보입니다...</td>
+				<td>홍길동</td>
+				<td>2024-03-23</td>
+			</tr>
+			
+		</table>
+	</div>
+	
 </body>
 </html>
+
+
+
