@@ -66,7 +66,7 @@ public class CommentsDAO {
 	
 	
 	//특정 뉴스기사에 딸려있는 댓글 목록 가져오기 
-	public void selectAllByFkey(int news_idx) {
+	public List selectAllByFkey(int news_idx) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -77,7 +77,7 @@ public class CommentsDAO {
 			Class.forName(driver);
 			con=DriverManager.getConnection(url, user, pass);
 			
-			String sql="select * comments where news_idx=? order by desc";
+			String sql="select * from comments where news_idx=? order by comments_idx desc";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, news_idx); 
 			rs=pstmt.executeQuery(); //쿼리수행 후 결과 반환
@@ -120,15 +120,11 @@ public class CommentsDAO {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			
-			
-			
 		}
-		
-
+		return list;
 	}
+	
+	
 }
 
 
