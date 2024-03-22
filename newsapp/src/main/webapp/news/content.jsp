@@ -72,7 +72,15 @@ input[type=button]:hover {
 	//이 함수는 최최에 onLoad 시에도 호출되어야 하지만, 글 등록시에도 비동기방식으로 목록을 가져와 
 	//갱신해야 하기 때문에 ajax 로 처리한다..(즉 새로고침 없이 목록이 갱신되어야 하므로...)
 	function getCommentsList(){
-		
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange=function(){
+			if(this.readyState==4 && this.status==200){
+				//댓글 목록을 처리~~~~
+				
+			}
+		}
+		xhttp.open("GET", "/comments/list?news_idx=<%=news_idx%>");
+		xhttp.send();//백그라운드 요청 시작
 	}
 
 	$(function(){

@@ -61,7 +61,26 @@ public class CommentsDAO {
 		return result;
 	}
 	
+	
+	//특정 뉴스기사에 딸려있는 댓글 목록 가져오기 
+	public void selectAllByFkey(int news_idx) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		
+		String sql="select * comments where news_idx=? order by desc";
+		
+	}
 }
+
+
+
+
+
+
+
+
+
 
 
 
