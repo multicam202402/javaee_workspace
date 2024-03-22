@@ -91,11 +91,20 @@ input[type=button]:hover {
 				
 				//obj.commentList만큼, 테이블 태그를 동적으로 출력해보자
 				let tag="<table width=\"100%\" border=\"1px\">";
+
 				tag+="<tr>";
-				tag+="<td>댓글 메시지</td>";
-				tag+="<td>작성자</td>";
-				tag+="<td>등록일</td>";
+				tag+="<th>댓글 메시지</th>";
+				tag+="<th>작성자</th>";
+				tag+="<th>등록일</th>";
 				tag+="</tr>";
+				for(let i=0;i<obj.commentsList.length;i++){
+					let json = obj.commentsList[i];//배열로 부터 json 객체 하나를 꺼낸다
+					tag+="<tr>";
+					tag+="<td>"+json.msg+"</td>";
+					tag+="<td>"+json.cwriter+"</td>";
+					tag+="<td>"+json.cregdate+"</td>";
+					tag+="</tr>";
+				}
 				tag+="</table>";
 				
 				$("#comments_container").html(tag);
@@ -137,7 +146,8 @@ input[type=button]:hover {
 			//서버의 응답이 성공적으로 들어오면...
 			xhttp.onreadystatechange=function(){
 				if(this.readyState==4 && this.status==200){ //요청이 도달하고, 서버에서 요청을 정상적으로 처리햇다면...
-					alert(this.responseText);
+					//alert(this.responseText);
+					getCommentsList();//목록을 비동기 방식으로 갱신!!
 				}
 			}
 			
