@@ -12,7 +12,18 @@ public class RegistServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("클라이언트 요청 감지");
+		//파라미터 받기
+		request.setCharacterEncoding("utf-8");
+		String msg = request.getParameter("msg");
+		String cwriter = request.getParameter("cwriter");
+		String news_idx = request.getParameter("news_idx");
+		
+		System.out.println("msg is "+msg);
+		System.out.println("cwriter is "+cwriter);
+		System.out.println("news_idx is "+news_idx);
+
+		
+		
 	}
 }
 

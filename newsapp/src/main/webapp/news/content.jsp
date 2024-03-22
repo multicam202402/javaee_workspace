@@ -106,7 +106,12 @@ input[type=button]:hover {
 			xhttp.open("POST", "/comments/regist");
 			
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send();//파라미터는 이따가 보내자
+			
+			let msg = $("#msg").val();  //메시지 값
+			let cwriter = $("#cwriter").val(); //작성자 값
+			let news_idx = <%=news_idx%>;
+				
+			xhttp.send("msg="+msg+"&cwriter="+cwriter+"&news_idx="+news_idx);//파라미터는 이따가 보내자
 		});
 		
 	});
@@ -133,8 +138,8 @@ input[type=button]:hover {
 	<!--댓글 등록 폼  -->
 	<div class="container">
 		<form id="form2">
-			<input type="text" style="width:70%" placeholder="댓글을 입력하세요...">			
-			<input type="text" style="width:15%" placeholder="작성자">			
+			<input type="text" id="msg" style="width:70%" placeholder="댓글을 입력하세요...">			
+			<input type="text" id="cwriter" style="width:15%" placeholder="작성자">			
 			<input type="button" value="등록" id="bt_reply" style="width:10%">
 		</form>
 	</div>
