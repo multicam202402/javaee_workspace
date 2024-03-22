@@ -68,6 +68,13 @@ input[type=button]:hover {
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script type="text/javascript">
+	
+	//이 함수는 최최에 onLoad 시에도 호출되어야 하지만, 글 등록시에도 비동기방식으로 목록을 가져와 
+	//갱신해야 하기 때문에 ajax 로 처리한다..(즉 새로고침 없이 목록이 갱신되어야 하므로...)
+	function getCommentsList(){
+		
+	}
+
 	$(function(){
 		$('#content').summernote();
 		
@@ -116,6 +123,8 @@ input[type=button]:hover {
 			xhttp.send("msg="+msg+"&cwriter="+cwriter+"&news_idx="+news_idx);//파라미터는 이따가 보내자
 		});
 		
+		//무조건, 이 기사에 딸려있는 댓글의 목록 가져오기 
+		getCommentsList();
 	});
 </script>
 </head>
