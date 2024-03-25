@@ -1,4 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="com.sds.poolproject.notice.NoticeDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%! 
+	NoticeDAO noticeDAO = new NoticeDAO();
+%>
 <%
 /*
 읽혀진 데이터들의 양이 많을 경우, 하나의 페이지내에서 모두~ 보여주려고 하면, 스크롤이 생겨
@@ -10,7 +15,10 @@
 페이징 처리의 가장 근본이 되는 데이터는 총 레코드 수이다..이유는? 레코드가 존재해야 분할하던
 말던 하지...
 */
-int totalRecord=26; //총 레코드 수
+
+List boardList = noticeDAO.selectAll();
+
+int totalRecord=boardList.size(); //총 레코드 수
 int pageSize=10;//한 페이지당 10건씩 보여주기
 //나머지 페이지를 보여주기 위해서는 페이지 분할 번호가 등장해야 하는데, 이때 총 몇페이지인지를 계산
 int totalPage=(int)Math.ceil((float)totalRecord/pageSize); //총 페이지 수

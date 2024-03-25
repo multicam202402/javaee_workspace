@@ -33,6 +33,10 @@
 		$("#bt_regist").click(function(){
 			regist();	
 		});		
+		
+		$("#bt_list").click(function(){
+			location.href="/notice/list.jsp";
+		});
 	});
 
 </script>
