@@ -45,12 +45,8 @@ int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+<%@ include file="/inc/header_link.jsp" %>
+
 <style type="text/css">
 	/*우리만의 스타일 클래스를 정의해보자  */
 	.pageStyle{
@@ -59,6 +55,14 @@ int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호
 		color:red;
 	}
 </style>
+<script type="text/javascript">
+	//글쓰기 폼 요청 
+	$(function(){
+		$("button").click(function(){
+			location.href="/notice/write.jsp";
+		});			
+	});
+</script>
 </head>
 <body>
 
@@ -138,10 +142,12 @@ int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호
                   
                 </ul>
             </div>		
-		<!-- 카드 푸터 끝 -->			 
-		 
-		         </div>
+		<!-- 카드 푸터 끝 -->
 		
+		<button>글쓰기</button>
+					 
+        </div>
+	
 		</div>
 	</div>
 		
