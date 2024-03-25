@@ -10,7 +10,7 @@
 페이징 처리의 가장 근본이 되는 데이터는 총 레코드 수이다..이유는? 레코드가 존재해야 분할하던
 말던 하지...
 */
-int totalRecord=926; //총 레코드 수
+int totalRecord=26; //총 레코드 수
 int pageSize=10;//한 페이지당 10건씩 보여주기
 //나머지 페이지를 보여주기 위해서는 페이지 분할 번호가 등장해야 하는데, 이때 총 몇페이지인지를 계산
 int totalPage=(int)Math.ceil((float)totalRecord/pageSize); //총 페이지 수
@@ -27,6 +27,13 @@ if(request.getParameter("currentPage") !=null){
 	//넘어온 파라미터가 있을때만...아래의 처리...
 	currentPage=Integer.parseInt(request.getParameter("currentPage"));
 }
+
+int firstPage=currentPage- (currentPage-1)%blockSize;	//블럭당 반복문의 시작값
+int lastPage=firstPage+(blockSize-1);	//블럭당 반복문의 끝값
+int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호 
+
+
+
 %>
 <%="totalRecord = "+totalRecord+"<br>"%>
 <%="pageSize = "+pageSize+"<br>"%>
@@ -90,8 +97,9 @@ if(request.getParameter("currentPage") !=null){
 		     
 		     <tbody>
 		     	<%for(int i=1;i<=pageSize;i++){ %>
+				<%if(num<1)break; %>			     	
 		       <tr>
-		         <td>183</td>
+		         <td><%=num-- %></td>
 		         <td>John Doe</td>
 		         <td>11-7-2014</td>
 		         <td><span class="tag tag-success">Approved</span></td>
@@ -106,14 +114,28 @@ if(request.getParameter("currentPage") !=null){
 		<!-- 카드 푸터 시작 -->
 			<div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
+                  <li class="page-item">
+                  	<%if(firstPage-1 >1){ //페이지 수가 유효한 경우만..%>
+                  		<a class="page-link" href="/notice/list.jsp?currentPage=<%=firstPage-1%>">«</a>
+                  	<%}else{ %>
+                  		<a class="page-link" href="javascript:alert('이전 페이지가 없습니다');">«</a>
+                  	<%} %>
+                  
+                 </li>
                   
                   <%for(int i=firstPage;i<=lastPage;i++){%>
+					<%if(i> totalPage) break;//보유한 페이지 수를 넘어서면 반복문 break; %>                  
                   	<li class="page-item">
                   		<a class="page-link  <%if(currentPage==i){%>pageStyle<%}%>" href="/notice/list.jsp?currentPage=<%=i%>"><%=i%></a>
                   	</li>
                   <%} %>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                  
+                  <%if(lastPage+1 < totalPage){ %>
+                  	<li class="page-item"><a class="page-link" href="/notice/list.jsp?currentPage=<%=lastPage+1%>">»</a></li>
+                  <%}else{ %>
+                  	<li class="page-item"><a class="page-link" href="javascript:alert('마지막 페이지입니다');">»</a></li>
+                  <%} %>
+                  
                 </ul>
             </div>		
 		<!-- 카드 푸터 끝 -->			 
