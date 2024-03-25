@@ -77,6 +77,43 @@ public class NoticeDAO {
 	}
 	
 	
+	//글 한건 가져오기(상세보기)
+	public Notice select(int notice_idx) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Notice notice=null;
+		
+		con=poolManager.getConnection(); //대여(신규 접속이 아님...)
+		
+		String sql="select * from notice where notice_idx=?";
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, notice_idx); //상세보기 글의 idx
+			rs = pstmt.executeQuery(); //레코드 1건 반환..
+			
+			//rs가 곧 죽을 예정이므로, rs가 가진 레코드 1건을, DTO 한개에 담아놓자 
+			if(rs.next()) { //레코드가 존재한다면...
+				notice = new Notice();
+				
+				//rs정보 DTO에 채워넣기
+				notice.setNotice_idx(rs.getInt("notice_idx"));
+				notice.setTitle(rs.getString("title"));
+				notice.setWriter(rs.getString("writer"));
+				notice.setContent(rs.getString("content"));
+				notice.setRegdate(rs.getString("regdate"));
+				notice.setHit(rs.getInt("hit"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			poolManager.release(con, pstmt, rs);
+		}
+		
+		return notice;
+	}
+	
+	
 	
 	/*
 	public int insert(Notice notice) {

@@ -1,3 +1,4 @@
+<%@page import="com.sds.poolproject.notice.Notice"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sds.poolproject.notice.NoticeDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
@@ -5,43 +6,41 @@
 	NoticeDAO noticeDAO = new NoticeDAO();
 %>
 <%
-/*
-읽혀진 데이터들의 양이 많을 경우, 하나의 페이지내에서 모두~ 보여주려고 하면, 스크롤이 생겨
-사용자들에게 불편함을 주게 된다..
-이 문제를 해결하려면, 데이터를 한꺼번에 보여주려고 하지 말고, 조금씩 분할하여 보여주면 된다
-이때 분할된 각각의 단위를 페이지라 하며, 이 페이지와 관련된 산수 로직을 페이징 처리라 한다..
-개발자마다 산수 로직은 틀리며 각자 알아서 자기만의 로직을 적용하면 된다..
-
-페이징 처리의 가장 근본이 되는 데이터는 총 레코드 수이다..이유는? 레코드가 존재해야 분할하던
-말던 하지...
-*/
-
-List boardList = noticeDAO.selectAll();
-
-int totalRecord=boardList.size(); //총 레코드 수
-int pageSize=10;//한 페이지당 10건씩 보여주기
-//나머지 페이지를 보여주기 위해서는 페이지 분할 번호가 등장해야 하는데, 이때 총 몇페이지인지를 계산
-int totalPage=(int)Math.ceil((float)totalRecord/pageSize); //총 페이지 수
-//out.print(    (int)Math.ceil((float)totalRecord/pageSize)   );
-int blockSize=10; //한 블럭당 몇 페이지씩 보여줄지 결정
-
-int currentPage=1; //클라이언트가 현재 보려고 하는 페이지 즉 현재 페이지 
-
-//혹여나, 사용자가 현재 list.jsp를 요청하면서, 전달된 파라미터 중 currentPage라는 파라미터가 있다면
-//그 그 값을 currentPage 변수값으로 사용하자!!
-//모든 파라미터 변수는 사실 상 문자열로 처리되므로, 파라미터가 넘어오지 않았다는 것은 String 객체가
-//메모리에 올라오지 못했단 것이다.. String은 객체이므로 당연하다..
-if(request.getParameter("currentPage") !=null){ 
-	//넘어온 파라미터가 있을때만...아래의 처리...
-	currentPage=Integer.parseInt(request.getParameter("currentPage"));
-}
-
-int firstPage=currentPage- (currentPage-1)%blockSize;	//블럭당 반복문의 시작값
-int lastPage=firstPage+(blockSize-1);	//블럭당 반복문의 끝값
-int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호 
-
-
-
+	/*
+	읽혀진 데이터들의 양이 많을 경우, 하나의 페이지내에서 모두~ 보여주려고 하면, 스크롤이 생겨
+	사용자들에게 불편함을 주게 된다..
+	이 문제를 해결하려면, 데이터를 한꺼번에 보여주려고 하지 말고, 조금씩 분할하여 보여주면 된다
+	이때 분할된 각각의 단위를 페이지라 하며, 이 페이지와 관련된 산수 로직을 페이징 처리라 한다..
+	개발자마다 산수 로직은 틀리며 각자 알아서 자기만의 로직을 적용하면 된다..
+	
+	페이징 처리의 가장 근본이 되는 데이터는 총 레코드 수이다..이유는? 레코드가 존재해야 분할하던
+	말던 하지...
+	*/
+	
+	List<Notice> boardList = noticeDAO.selectAll();
+	
+	int totalRecord=boardList.size(); //총 레코드 수
+	int pageSize=10;//한 페이지당 10건씩 보여주기
+	//나머지 페이지를 보여주기 위해서는 페이지 분할 번호가 등장해야 하는데, 이때 총 몇페이지인지를 계산
+	int totalPage=(int)Math.ceil((float)totalRecord/pageSize); //총 페이지 수
+	//out.print(    (int)Math.ceil((float)totalRecord/pageSize)   );
+	int blockSize=10; //한 블럭당 몇 페이지씩 보여줄지 결정
+	
+	int currentPage=1; //클라이언트가 현재 보려고 하는 페이지 즉 현재 페이지 
+	
+	//혹여나, 사용자가 현재 list.jsp를 요청하면서, 전달된 파라미터 중 currentPage라는 파라미터가 있다면
+	//그 그 값을 currentPage 변수값으로 사용하자!!
+	//모든 파라미터 변수는 사실 상 문자열로 처리되므로, 파라미터가 넘어오지 않았다는 것은 String 객체가
+	//메모리에 올라오지 못했단 것이다.. String은 객체이므로 당연하다..
+	if(request.getParameter("currentPage") !=null){ 
+		//넘어온 파라미터가 있을때만...아래의 처리...
+		currentPage=Integer.parseInt(request.getParameter("currentPage"));
+	}
+	
+	int firstPage=currentPage- (currentPage-1)%blockSize;	//블럭당 반복문의 시작값
+	int lastPage=firstPage+(blockSize-1);	//블럭당 반복문의 끝값
+	int curPos=(currentPage-1)*pageSize; //페이지당 List의 시작 index
+	int num=  totalRecord -  curPos ; //페이지당 시작 번호 
 %>
 <%="totalRecord = "+totalRecord+"<br>"%>
 <%="pageSize = "+pageSize+"<br>"%>
@@ -109,13 +108,21 @@ int num=  totalRecord -  (currentPage-1)*pageSize ; //페이지당 시작 번호
 		     
 		     <tbody>
 		     	<%for(int i=1;i<=pageSize;i++){ %>
-				<%if(num<1)break; %>			     	
+				<%if(num<1)break; %>	
+				<%
+					//페이지당 List의  시작 index를 이용하여, List에서 DTO를 꺼내자..
+					Notice notice=boardList.get(curPos++);
+				%>		     	
 		       <tr>
 		         <td><%=num-- %></td>
-		         <td>John Doe</td>
-		         <td>11-7-2014</td>
-		         <td><span class="tag tag-success">Approved</span></td>
-		         <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+		         <td>
+		         	<a href="/notice/content.jsp?notice_idx=<%=notice.getNotice_idx()%>">
+		         		<%=notice.getTitle() %>
+		         	</a>
+		         </td>
+		         <td><%=notice.getWriter() %></td>
+		         <td><%=notice.getRegdate() %></td>
+		         <td><%=notice.getHit() %></td>
 		       </tr>
 		       <%} %>
 		       
