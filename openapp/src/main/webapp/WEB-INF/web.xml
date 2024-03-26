@@ -16,7 +16,7 @@
 	<!-- 병원 목록 요청 서블릿 매핑 -->
 	<servlet>
 		<servlet-name>listServlet</servlet-name>
-		<servlet-class>com.sds.openapp.xml.ListServlet</servlet-class>
+		<servlet-class>com.sds.openapp.medic.ListServlet</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

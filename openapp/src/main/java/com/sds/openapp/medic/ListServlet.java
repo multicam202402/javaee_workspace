@@ -1,9 +1,9 @@
-package com.sds.openapp.xml;
+package com.sds.openapp.medic;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -12,17 +12,30 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
 
 //병원 목록 요청을 처리하는 서블릿
 public class ListServlet extends HttpServlet{
 	//String serviceKey="TPK6sq5VdCOFrijK99CmJHQCEVer9GwK4sxLvP6ED6dBExrBc6FO298QjQadJsw7C4sDZ8yBXJfsYZ/VT6LG0A==";
 	String serviceKey="내꺼";
 	
+	SAXParserFactory factory;
+	SAXParser parser;
+	
+	public ListServlet() {
+		factory = SAXParserFactory.newInstance();
+	}
+	
 	//클라이언트의 요청이 get방식이므로, doGet() 재정의 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
 		
 		String code = request.getParameter("code");
+		String numOfRows = request.getParameter("numOfRows");
 		
 		System.out.println("클라이언트가 전송한 지역 코드는 "+code);
 		
@@ -34,8 +47,8 @@ public class ListServlet extends HttpServlet{
 		//요청 주소 문자열이 너무 길 경우, 체계적으로 관리하기 위해 문자열을 분리시켜보자 
 		StringBuilder sb = new StringBuilder();
 		sb.append("https://apis.data.go.kr/B551182/hospInfoServicev2/getHospBasisList"); //url
-		sb.append("?serviceKey="+URLEncoder.encode(serviceKey)); //나만의 인증 서비스키
-		sb.append("&numOfRows="+URLEncoder.encode("100", "UTF-8")); //100건 가져오기
+		sb.append("?serviceKey="+URLEncoder.encode(serviceKey, "UTF-8")); //나만의 인증 서비스키
+		sb.append("&numOfRows="+URLEncoder.encode(numOfRows, "UTF-8")); //100건 가져오기
 		sb.append("&sidoCd="+URLEncoder.encode(code, "UTF-8"));
 		
 		URL url=new URL(sb.toString());
@@ -49,36 +62,67 @@ public class ListServlet extends HttpServlet{
 		//서버에 요청 후 반환값을 이용한 판단 
 		int status = con.getResponseCode(); // 성공일 경우 200이 전송되어옴..
 		
-		InputStreamReader reader=null; //try 문밖으로 빼놓아야 나중에 닫음
-		BufferedReader buffr=null; //한줄씩 읽어들이는 버퍼처리된 문자기반의 입력스트림
+		//서버로부터 받은 데이터를 이용하여, XML을 분석한 후, 자바가 이해하는 구조로 변환(Convert)
+		//즉 XML 을 List 을 변환하자!!!
+		URI uri=null;
+		try {
+			uri = url.toURI();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 		
-		if(status==200) {
+		if(status==200 && status<=300) {
+			MedicHandler handler=null;
+			
+			try {
+				parser = factory.newSAXParser();//파서 생성
+				parser.parse(uri.toString(), handler= new MedicHandler());
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
+				e.printStackTrace();
+			}  
+			
+			//결과 보고 
+			System.out.println("조회된 병원 수는 "+handler.list.size());
+			
+		}
+		
+		
+		
+		//InputStreamReader reader=null; //try 문밖으로 빼놓아야 나중에 닫음
+		//BufferedReader buffr=null; //한줄씩 읽어들이는 버퍼처리된 문자기반의 입력스트림
+		
+		//if(status==200) {
 			
 			//입력스트림을 이용하여, 서버로부터 전송되어온 문자열 들을
 			
 			//바이트 스트림을 문자스트림으로 업그레이드
-			reader = new InputStreamReader(con.getInputStream());
+			//reader = new InputStreamReader(con.getInputStream());
 			
 			//문자 기반 스트림을, 버퍼처리된 스트림으로 업그레이드(이때 부터 한줄씩 읽어들일 수 있다)
-			buffr = new BufferedReader(reader);
+			//buffr = new BufferedReader(reader);
 			
 			//데이터 한줄씩 읽어들이기
-			String str=null;
-			
+			//String str=null;
+			/*
 			while(true) {
 				str = buffr.readLine();
 				if(str ==null)break;//데이터가 없다면 루프 중단
 				System.out.println(str);
 			}
-		}//end if
+			*/
+		//}//end if
 		
 		//스트림 닫기 
+		/*
 		if(buffr!=null) {
 			buffr.close();
 		}
 		if(reader !=null) {
 			reader.close();
 		}
+		*/
 		
 		//연결 객체 접속 해제
 		con.disconnect();
