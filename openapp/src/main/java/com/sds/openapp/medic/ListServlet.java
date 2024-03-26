@@ -1,6 +1,7 @@
 package com.sds.openapp.medic;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,6 +34,7 @@ public class ListServlet extends HttpServlet{
 	//클라이언트의 요청이 get방식이므로, doGet() 재정의 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		
 		String code = request.getParameter("code");
 		String numOfRows = request.getParameter("numOfRows");
@@ -86,9 +88,35 @@ public class ListServlet extends HttpServlet{
 			//결과 보고 
 			System.out.println("조회된 병원 수는 "+handler.list.size());
 			
+			//자바의 API 로 변환된 데이터는 클라이언트인 웹브라우저의 js가 이해할 수 없으므로, 
+			//js가 이해할 수 있는 형태인, json 문자열로 전송해주자 
+			//기존의 sb 가 있다면 싸악!~~비우고 쓰는 법
+			
+			sb.delete(0, sb.length()); //StringBuilder 안의 모든 문자열 제거 
+			
+			sb.append("{");
+			sb.append("\"hospitalList\" : [");
+			
+			for(int i=0;i<handler.list.size();i++) {
+				Hospital hospital = handler.list.get(i); // 리스트에서 i번째의 요소를 꺼내기
+				sb.append("{");
+				sb.append("\"name\":\""+hospital.getName()+ "\",");
+				sb.append("\"addr\" :\""+hospital.getAddr()+ "\", ");
+				sb.append("\"lati\": "+hospital.getLati()+","); 
+				sb.append("\"longi\" :"+hospital.getLongi()+"");
+				
+				if(i < handler.list.size()-1) {
+					sb.append("},"); // list의 사이즈에서 -1 뺀수보다 작은 경우까지만..
+				}else {
+					sb.append("}"); 
+				}
+			}
+			sb.append("]");
+			sb.append("}");			
+			
+			//StringBuilder  에 들어있는 문자열을 웹브라우저 클라이언트에 응답 정보로 전송
+			out.print(sb.toString());
 		}
-		
-		
 		
 		//InputStreamReader reader=null; //try 문밖으로 빼놓아야 나중에 닫음
 		//BufferedReader buffr=null; //한줄씩 읽어들이는 버퍼처리된 문자기반의 입력스트림
