@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 //병원 목록 요청을 처리하는 서블릿
 public class ListServlet extends HttpServlet{
-	String serviceKey="TPK6sq5VdCOFrijK99CmJHQCEVer9GwK4sxLvP6ED6dBExrBc6FO298QjQadJsw7C4sDZ8yBXJfsYZ/VT6LG0A==";
+	//String serviceKey="TPK6sq5VdCOFrijK99CmJHQCEVer9GwK4sxLvP6ED6dBExrBc6FO298QjQadJsw7C4sDZ8yBXJfsYZ/VT6LG0A==";
+	String serviceKey="내꺼";
 	
 	//클라이언트의 요청이 get방식이므로, doGet() 재정의 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +27,7 @@ public class ListServlet extends HttpServlet{
 		System.out.println("클라이언트가 전송한 지역 코드는 "+code);
 		
 		//open api 포탈에서 부여받은 인증키를 이용하여, 원하는 서버의 open api를 이용해보자
-		//우리가 만든 html과의 관계에서는 고양이가 서버가 되지만,  외부  open api 서버와 고양이와의 관계에서
+		//우리가 만든 html과의 관계에서는 고양이가 서버가 되//지만,  외부  open api 서버와 고양이와의 관계에서
 		//고양이는 클라이언트 역할을 한다.따라서 Tomcat에서 외부의 웹서버에게 요청을 시도해야 하고, 
 		//이때 사용되는 객체가 바로 javaSE에서 지원하는 HttpURLConnection 이다!!!
 		
