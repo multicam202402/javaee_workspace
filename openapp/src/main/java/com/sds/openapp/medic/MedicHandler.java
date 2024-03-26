@@ -9,6 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 //읽어들인 xml 문서를 분석하기 위한 핸들러.. 각 태그마다 이벤트가 발생하면 적절한 처리를 해주자
 public class MedicHandler extends DefaultHandler{
 	ArrayList<Hospital> list; //병원 DTO들을 담게될 리스트
+	ListServlet listServlet;
 	
 	boolean isAddr;//주소 addr
 	boolean isXPos;//위도 XPos
@@ -17,6 +18,9 @@ public class MedicHandler extends DefaultHandler{
 	
 	Hospital dto;
 	
+	public MedicHandler(ListServlet listServlet) {
+		this.listServlet=listServlet;
+	}
 	//문서가 시작될때 호출되는 메서드 
 	public void startDocument() throws SAXException {
 	}
@@ -74,6 +78,7 @@ public class MedicHandler extends DefaultHandler{
 	
 	//문서가 끝날때 호출되는 메서드 
 	public void endDocument() throws SAXException {
+		listServlet.createResponseData();
 	}
 }
 

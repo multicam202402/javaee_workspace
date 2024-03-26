@@ -21,6 +21,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
+	let map;
+	
 	function loadAsync(){
 		let xhttp = new XMLHttpRequest(); //비동기 방식의 백그라운드 요청 객게
 		
@@ -41,6 +43,9 @@
 				for(let i=0;i<obj.hospitalList.length;i++){
 					let hospital = obj.hospitalList[i]; //배열에서 i번째 있는 병원 꺼내기 
 					console.log(hospital.name);
+					
+					//지도에 표시하기
+					createMarker( hospital.name , hospital.lati, hospital.longi);				
 				}
 				
 			}	
@@ -50,6 +55,31 @@
 		xhttp.send(); //요청시작
 	}
 
+	//마커와 정보 추가하기 ,이 함수의 호출자는 위도와 경도를 넘겨줘야 한다..
+	function createMarker(name, lati, longi){
+		var marker = new google.maps.Marker({
+			position:new google.maps.LatLng(lati, longi) ,
+			animation:google.maps.Animation.BOUNCE
+		});
+		
+		var infowindow = new google.maps.InfoWindow({
+			  content:name
+		});
+		
+		infowindow.open(map,marker); //정보창 띄우기		
+		marker.setMap(map); //마커 생성
+	}
+	
+	//구글맵 초기화 함수 
+	function initMap(){
+		let mapProp= {
+			center:new google.maps.LatLng(37, 127),
+			zoom:9,
+		};
+		
+		map = new google.maps.Map(document.getElementById("content"),mapProp);		
+	}
+	
 	$(function(){
 		$("button").click(function(){
 			loadAsync(); //비동기 방식으로 데이터 가져오기...
@@ -97,8 +127,7 @@
 	</div>
 </body>
 </html>
-
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7Ks5_QheydMzR9dAfmPtTjiGs6kZfaaA&callback=initMap"></script>
 
 
 
