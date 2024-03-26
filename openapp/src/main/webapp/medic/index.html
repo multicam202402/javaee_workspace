@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#content{
+	background:yellow;
+	height:800px;
+}
+</style>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+	function loadAsync(){
+		let xhttp = new XMLHttpRequest(); //비동기 방식의 백그라운드 요청 객게
+		
+		xhttp.onreadystatechange=function(){ 
+			//readystate  속성으로 서버에 대한 요청 단계가 어디까지 왔는지를 판단할 수 있다..
+			//readystate 속성이 변경될때마다, 감지함
+			if(this.readyState==4 && this.status==20){
+				console.log("서버에서 응답이 도착했네요..");
+			}	
+		}
+		
+		xhttp.open("GET", "/medic/list?code="+$("#code").val());
+		xhttp.send(); //요청시작
+	}
+
+	$(function(){
+		$("button").click(function(){
+			loadAsync(); //비동기 방식으로 데이터 가져오기...
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3" id="aside">
+				
+				<input type="text" id="code" placeholder="원하는 지역코드 입력(선택)">
+				<button type="button">데이터 가져오기</button>
+				
+			</div>
+			<div class="col-sm-9" id="content">지도</div>
+		</div>	
+	</div>
+</body>
+</html>
+
+
+
+
+
