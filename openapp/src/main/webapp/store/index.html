@@ -30,24 +30,18 @@
 			//readystate  속성으로 서버에 대한 요청 단계가 어디까지 왔는지를 판단할 수 있다..
 			//readystate 속성이 변경될때마다, 감지함
 			if(this.readyState==4 && this.status==200){
-				console.log("서버에서 응답이 도착했네요..", this.responseText);
-				
+				//console.log("서버에서 응답이 도착했네요..", this.responseText);
 				$("#spin").toggleClass("spinner-border spinner-border-sm");
 				
-				//서버로부터 받은 responseText는 문자열이기 때문에, 객체로 접근할 수 없다.. 
-				//예)  배열[0].name 불가함
-				//따라서 문자열을 js 의 객체로 변환하자. 이때 사용되는 객체가 바로 JSON 내장객체 
-				//즉 JSON 문자열을 대상으로, JSON 객체화 시키기 
-				let obj = JSON.parse(this.responseText);
+				//서버로부터 응답 받은 데이터 자체는 문자열이므로, 객체 처럼 쓰러면 객체화 시켜야한다
+				let json = JSON.parse(this.responseText); //문자열을 객체로 변환
 				
-				for(let i=0;i<obj.hospitalList.length;i++){
-					let hospital = obj.hospitalList[i]; //배열에서 i번째 있는 병원 꺼내기 
-					console.log(hospital.name);
-					
-					//지도에 표시하기
-					createMarker( hospital.name , hospital.lati, hospital.longi);				
+				console.log(json.body);
+				
+				for(let i=0; i<json.body.length;i++){ //맛집 수만큼...
+					let store = json.body[i]; //i번째 맛집 꺼내기 
+					createMarker(store.CMPNM, store.LA, store.LO );
 				}
-				
 			}	
 		}
 		
