@@ -44,6 +44,11 @@
 		});
 	}
 	
+	//게시물 상세 보기 요청 함수 
+	function getDetail(idx){
+		alert(idx);
+	}
+	
 	//가운데 div에 동적 테이블 출력 
 	function renderTable(array){
 		//array 매개변수가 json 배열이다.. 
@@ -61,7 +66,7 @@
 			let json = array[i]; //i번째 json 꺼내기
 			tag+="<tr>";
 			tag+="<td>No</td>";
-			tag+="<td>"+json.title+"</td>";
+			tag+="<td onClick=\"getDetail("+json.board_idx+")\">"+json.title+"</td>";
 			tag+="<td>"+json.writer+"</td>";
 			tag+="<td>"+json.regdate+"</td>";
 			tag+="<td>"+json.hit+"</td>";
