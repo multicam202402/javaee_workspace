@@ -44,13 +44,51 @@
 		});
 	}
 	
+	//가운데 div에 동적 테이블 출력 
+	function renderTable(array){
+		//array 매개변수가 json 배열이다.. 
+		
+		let tag="<table width=\"100%\" border=\"1\">";
+		tag+="<tr>";
+		tag+="<th>No</th>";
+		tag+="<th>제목</th>";
+		tag+="<th>작성자</th>";
+		tag+="<th>등록일</th>";
+		tag+="<th>조회수</th>";
+		tag+="</tr>";
+		
+		for(let i=0; i<array.length;i++){ //넘겨받은 매개변수 배열만큼 반복..
+			let json = array[i]; //i번째 json 꺼내기
+			tag+="<tr>";
+			tag+="<td>No</td>";
+			tag+="<td>"+json.title+"</td>";
+			tag+="<td>"+json.writer+"</td>";
+			tag+="<td>"+json.regdate+"</td>";
+			tag+="<td>"+json.hit+"</td>";
+			tag+="</tr>";	
+		}
+		tag+="</table>";
+		
+		//생성된 태그를 div에 반영하기 innerHTML과 동일 
+		$("#listArea").html(tag);
+	}
+	
 	//비동기 방식으로, 게시판 목록을 요청하자 
 	function getBoardList(){
 		$.ajax({
 			url:"/board/list",
 			type:"get", 
 			success: function(result, status, xhttp){
+				/*
+				그냥 순수 js 에서 지원하는 XMLHttpRequest 객체를 사용할때는, 서버로부터 받은 응답 정보가
+				무조건 ~~~~ 문자열인 반면, JQuery 에서 Ajax 는 서버에서 보내온 데이터 형태 즉  MIME
+				Type 이 application/json 일 경우, JSON 객체로 취급된다..따라서 JSON.parse() 처리를 
+				하지 않아도 된다..
+				*/
 				console.log("서버가 보내온 목록 데이터는 ", result);
+				
+				//화면 가운데 영역에 테이블로 동적 출력하기 
+				renderTable(result);
 			}			
 		});		
 	}
@@ -68,7 +106,7 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-sm-3" style="background-color:yellow;">
+			<div class="col-md-3" style="background-color:yellow;">
 				
 				<div class="form-group">
 					<input type="text" class="form-control" id="title" placeholder="제목입력..">
@@ -82,13 +120,11 @@
 				
 				<div class="form-group">
 					<button type="button" class="form-control btn-primary">글등록</button>
-				</div>
-							
+				</div>							
 			</div>
 			
-			
-			<div class="col-sm-6" style="background-color:orange;">6</div>
-			<div class="col-sm-3" style="background-color:pink;">3</div>
+			<div class="col-md-6" style="background-color:orange;" id="listArea">6</div>
+			<div class="col-md-3" style="background-color:pink;">3</div>
 		</div>
 		
 	</div>
