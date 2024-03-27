@@ -36,6 +36,7 @@
 			success:function(result, status, xhttp){ //서버가 200 으로 응답하면 이 익명 함수가 동작함 
 											// if(this.readyState==4 && this.status==200)
 				console.log("등록 성공", result);
+				getBoardList();
 			}, 
 			error:function(status, xhttp, err){ //500
 				console.log("등록 실패. 서버가 에러를 발생하여 알려줌");
@@ -43,7 +44,20 @@
 		});
 	}
 	
+	//비동기 방식으로, 게시판 목록을 요청하자 
+	function getBoardList(){
+		$.ajax({
+			url:"/board/list",
+			type:"get", 
+			success: function(result, status, xhttp){
+				console.log("서버가 보내온 목록 데이터는 ", result);
+			}			
+		});		
+	}
+	
 	$(function(){
+		getBoardList();//게시물 목록 가져오기
+		
 		$("button").click(function(){
 			registAsync();
 		});			

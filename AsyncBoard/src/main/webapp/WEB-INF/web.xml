@@ -15,6 +15,16 @@
 		<url-pattern>/board/regist</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 글 목록 처리 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>listServlet</servlet-name>
+		<servlet-class>com.sds.asynboard.board.ListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>listServlet</servlet-name>
+		<url-pattern>/board/list</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
 
 
