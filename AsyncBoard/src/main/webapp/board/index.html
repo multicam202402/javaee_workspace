@@ -126,7 +126,9 @@
 				
 			},
 			success:function(result, status, xhttp){
-				
+				if(result=="ok"){
+					getBoardList(); //목록 갱신
+				}
 			}
 		});		
 	}

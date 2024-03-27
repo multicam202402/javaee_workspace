@@ -110,7 +110,40 @@ public class BoardDAO {
 		}
 		return result; //결과 반환
 	}
+	
+	//게시물 1건 수정하기 
+	public int update(Board board) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int result=0;//쿼리 실행 성공 여부를 담는 변수 
+		
+		con=pool.getConnection(); //대여 
+		
+		String sql="update board set title=?, writer=?, content=? where board_idx=?";
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle()); // dto 에서 title을 꺼내어 바인드 변수에 대입
+			pstmt.setString(2, board.getWriter()); // dto 에서 writer 를 꺼내어 바인드 변수에 대입
+			pstmt.setString(3, board.getContent()); // dto 에서 content 를 꺼내어 바인드 변수에 대입
+			pstmt.setInt(4, board.getBoard_idx()); // dto 에서 board_idx 를 꺼내어 바인드 변수에 대입
+			
+			result = pstmt.executeUpdate(); //쿼리 실행
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			pool.release(con, pstmt);
+		}
+		return result;
+	}
+	
 }
+
+
+
+
+
+
 
 
 
