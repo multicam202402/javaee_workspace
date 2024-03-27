@@ -25,6 +25,16 @@
 		<url-pattern>/board/list</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 글 상세보기 처리 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>detailServlet</servlet-name>
+		<servlet-class>com.sds.asynboard.board.DetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>detailServlet</servlet-name>
+		<url-pattern>/board/detail</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
 
 

@@ -46,7 +46,14 @@
 	
 	//게시물 상세 보기 요청 함수 
 	function getDetail(idx){
-		alert(idx);
+		//사용자가 선택한 글의 idx를 이용하여, 서버에 비동기로 한건 가져오기 요청을 시도하자
+		$.ajax({
+			url:"/board/detail?board_idx="+idx , 
+			type:"get", 
+			success:function(result, status, xhttp){
+				
+			}
+		});
 	}
 	
 	//가운데 div에 동적 테이블 출력 
