@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	int totalRecord=926; //총 레코드 수
+	int totalRecord=26; //총 레코드 수
 	int pageSize=10; //한 페이지당 보여질 레코드 수 
 	int totalPage= (int)Math.ceil((float)totalRecord/pageSize);
 	int blockSize=10; //블럭당 보여질 페이지 수 
@@ -10,6 +10,10 @@
 	if(request.getParameter("currentPage") !=null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
+	int firstPage=currentPage - (currentPage-1)%blockSize; //블럭당 for문의 시작 페이지 값 
+	int lastPage=firstPage +(blockSize-1); //블럭당 for문의 끝 페이지 값 
+	
+	int num = totalRecord - (currentPage-1)*pageSize; //페이지당 시작 게시물 번호
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,8 +45,9 @@
 			</thead>
 			<tbody>
 				<%for(int i=1;i<=pageSize;i++){ %>
+				<%if(num<1)break;%>
 				<tr>
-					<td>John</td>
+					<td><%=num-- %></td>
 					<td>Doe</td>
 					<td>john@example.com</td>
 					<td>john@example.com</td>
@@ -53,11 +58,17 @@
 				<tr>
 					<td colspan="6" align="center">
 						<ul class="pagination">
-						  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						  <%for(int i=1;i<=blockSize;i++){%>
-						  	<li class="page-item active"><a class="page-link" href="/board/list.jsp?currentPage=<%=i%>"><%=i%></a></li>
+						  <%if(firstPage-1>1){//이전 페이지가있을때만.. %>
+						  	<li class="page-item"><a class="page-link" href="/board/list.jsp?currentPage=<%=firstPage-1%>">Previous</a></li>
+						  <%}else{ %>
+						  	<li class="page-item"><a class="page-link" href="javascript:alert('이전 페이지가 없습니다');">Previous</a></li>
 						  <%} %>
-						  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+						  
+						  <%for(int i=firstPage;i<=lastPage;i++){%>
+						  <%if(i>totalPage)break;%>
+						  	<li class="page-item  <%if(currentPage==i){%>active<%}%>"><a class="page-link" href="/board/list.jsp?currentPage=<%=i%>"><%=i%></a></li>
+						  <%} %>
+						  <li class="page-item"><a class="page-link" href="/board/list.jsp?currentPage=<%=lastPage+1%>">Next</a></li>
 						</ul>		
 					</td>
 				</tr>
