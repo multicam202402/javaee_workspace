@@ -9,8 +9,15 @@
 <script type="text/javascript">
 	$(function(){
 			
-		$("button").click(function(){
-			location.href="/board/write.jsp";
+		//서버에 파라미터를 전송하되, 텍스트와 바이너리가 복합된 형태의 데이터를 전송해야 하므로, 
+		//encoding 을 multipart/form-data  , 서버측에서는 파일업로드 컴포넌트가 준비되어야 함
+		$("#bt_regist").click(function(){
+			$("form").attr({
+				action:"/board/regist", 
+				method:"post",
+				enctype:"multipart/form-data"
+			});
+			$("form").submit();
 		});
 		
 	});
@@ -35,7 +42,7 @@
 				<input type="file" class="form-control" name="file">
 			</div>
 			
-			<button type="button" class="btn btn-primary">Submit</button>
+			<button type="button" class="btn btn-primary" id="bt_regist">Submit</button>
 		</form>
 
 	</div>
