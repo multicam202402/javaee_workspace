@@ -9,7 +9,7 @@ public class Dataroom {
 	private String writer;
 	private String content;
 	private String regdate;
-	private String hit;
+	private int hit;
 	private String filename;
 	
 }

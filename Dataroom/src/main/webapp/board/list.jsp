@@ -1,6 +1,14 @@
+<%@page import="com.sds.dataroom.board.Dataroom"%>
+<%@page import="java.util.List"%>
+<%@page import="com.sds.dataroom.board.DataroomDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%! 
+	DataroomDAO dataroomDAO=new DataroomDAO();
+%>
 <%
-	int totalRecord=26; //총 레코드 수
+	List<Dataroom> list=dataroomDAO.selectAll();
+
+	int totalRecord=list.size(); //총 레코드 수
 	int pageSize=10; //한 페이지당 보여질 레코드 수 
 	int totalPage= (int)Math.ceil((float)totalRecord/pageSize);
 	int blockSize=10; //블럭당 보여질 페이지 수 
@@ -12,8 +20,8 @@
 	}
 	int firstPage=currentPage - (currentPage-1)%blockSize; //블럭당 for문의 시작 페이지 값 
 	int lastPage=firstPage +(blockSize-1); //블럭당 for문의 끝 페이지 값 
-	
-	int num = totalRecord - (currentPage-1)*pageSize; //페이지당 시작 게시물 번호
+	int curPos= (currentPage-1)*pageSize; //페이지당 List의 시작 index 
+	int num = totalRecord - curPos; //페이지당 시작 게시물 번호
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,13 +60,14 @@
 			<tbody>
 				<%for(int i=1;i<=pageSize;i++){ %>
 				<%if(num<1)break;%>
+				<%Dataroom dataroom = list.get(curPos++); %>
 				<tr>
 					<td><%=num-- %></td>
-					<td>Doe</td>
-					<td>john@example.com</td>
-					<td>john@example.com</td>
-					<td>john@example.com</td>
-					<td>월말결산.xlsx</td>
+					<td><%=dataroom.getTitle() %></td>
+					<td><%=dataroom.getWriter() %></td>
+					<td><%=dataroom.getRegdate() %></td>
+					<td><%=dataroom.getHit() %></td>
+					<td><%=dataroom.getFilename() %></td>
 				</tr>
 				<%} %>
 				<tr>
