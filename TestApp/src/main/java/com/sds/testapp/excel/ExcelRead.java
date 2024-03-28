@@ -1,39 +1,47 @@
 package com.sds.testapp.excel;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Iterator;
 
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelTest {
-	
+public class ExcelRead {
+
 	public static void main(String[] args) {
-		//URL url = ClassLoader.getSystemResource("D:/javaee_workspace/TestApp/res/test.xlsx");
-		//System.out.println(url);
+		// URL url =
+		// ClassLoader.getSystemResource("D:/javaee_workspace/TestApp/res/test.xlsx");
+		// System.out.println(url);
 		try {
-			File file = new File("D:/javaee_workspace/TestApp/res/test.xlsx");
-			Workbook workbook = WorkbookFactory.create(file);
-			Sheet sheet= (Sheet)workbook.getSheetAt(0);
-			Iterator it = sheet.iterator();
+			Workbook workbook = new XSSFWorkbook("D:/javaee_workspace/TestApp/res/test.xlsx");
 			
-			while(it.hasNext()) {
-				Object obj = it.next();
-				Row row=(Row)obj;
-				System.out.println("결과 "+row.getCell(0).toString()+","+row.getCell(1).toString()); 
+			Sheet sheet = workbook.getSheetAt(0);
+			
+			Iterator<Row> iterator = sheet.iterator();
+
+			while (iterator.hasNext()) {
+				Row currentRow = iterator.next();
+				Iterator<Cell> cellIterator = currentRow.iterator();
+
+				while (cellIterator.hasNext()) {
+					Cell currentCell = cellIterator.next();
+					if (currentCell.getCellType() == CellType.STRING) {
+						System.out.print(currentCell.getStringCellValue() + "--");
+					} else if (currentCell.getCellType() == CellType.NUMERIC) {
+						System.out.print(currentCell.getNumericCellValue() + "--");
+					}
+				}
+				System.out.println();
 			}
-		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			workbook.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 }
