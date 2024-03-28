@@ -67,7 +67,9 @@
 					<td><%=dataroom.getWriter() %></td>
 					<td><%=dataroom.getRegdate() %></td>
 					<td><%=dataroom.getHit() %></td>
-					<td><%=dataroom.getFilename() %></td>
+					<td>
+						<a href="/board/download.jsp?filename=<%=dataroom.getFilename() %>"><%=dataroom.getFilename() %></a>
+					</td>
 				</tr>
 				<%} %>
 				<tr>
