@@ -20,7 +20,7 @@ public class ExcelRead {
 		try {
 			
 			//엑셀파일을 접근한다 
-			Workbook workbook=new XSSFWorkbook("D:/javaee_workspace/Dataroom/src/main/webapp/data/emp.xlsx");
+			Workbook workbook=new XSSFWorkbook("D:/javaee_workspace/Dataroom/src/main/webapp/data/emp2.xlsx");
 			
 			//Sheet 쉬트에 접근
 			Sheet sheet = workbook.getSheetAt(0); //첫번째 시트에 접근
