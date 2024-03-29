@@ -7,7 +7,7 @@
 <script type="text/javascript">
 function send(){
 	let form = document.querySelector("form");
-	form.action="/blood";
+	form.action="/blood.do";
 	form.method="post";
 	form.submit();
 }

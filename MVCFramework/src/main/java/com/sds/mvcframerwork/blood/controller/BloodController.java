@@ -20,10 +20,10 @@ import com.sds.mvcframerwork.blood.model.BloodManager;
  * 3) C : 클라이언트 요청을 받을 수 있어야 하고 + 웹서버에서 실행될 수 있어야 하고 + 자바의 기술을 이해
  * 	         위 3조건을 만족하는 기술은 서블릿밖에 없다(jsp도 할 수는 있지만 이미 View 에 사용되고 있으므로 제외) 
  * */
-public class BloodController extends HttpServlet{
+public class BloodController{
 	BloodManager manager=new BloodManager();
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String blood = request.getParameter("blood");
 		String msg=null;
 		msg = manager.getAdvice(blood); // 모델 객체에게 일 시키기!!

@@ -7,8 +7,8 @@
 <script type="text/javascript">
 function send(){
 	let form = document.querySelector("form");
-	form.action="/movie?movie=미션임파서블5";
-	form.method="get";
+	form.action="/movie.do";
+	form.method="post";
 	form.submit();
 }
 </script>

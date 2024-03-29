@@ -19,7 +19,15 @@
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>com.sds.mvcframerwork.controller.DispatcherServlet</servlet-class>
+		<!-- 서블릿의 인스턴스가 생성된 직 후, init() 생명주기 메서드 호출 시, 아래의 ini-param 
+			에 명시된 String 데이터를 서블릿에게 전달할 수 있다
+		 -->
+		<init-param>
+			<param-name></param-name>
+			<param-value></param-value>
+		</init-param>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>*.do</url-pattern>
