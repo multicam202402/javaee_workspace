@@ -23,6 +23,16 @@
 		<url-pattern>/blood</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 영화 요청을 처리하는 컨트롤러 매핑 -->
+	<servlet>
+		<servlet-name>movieController</servlet-name>
+		<servlet-class>com.sds.mvcframerwork.movie.controller.MovieController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>movieController</servlet-name>
+		<url-pattern>/movie</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
 
 

@@ -23,7 +23,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>당신이 선택한 혈액형에 대한 결과 </h1>
+	<h1>당신이 선택한 영화에 대한 결과 </h1>
 	<%String msg=(String)request.getAttribute("msg"); %>
 	<%=msg %>
 </body>

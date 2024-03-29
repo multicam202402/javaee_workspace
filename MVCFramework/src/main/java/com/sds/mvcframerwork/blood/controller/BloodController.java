@@ -2,11 +2,12 @@ package com.sds.mvcframerwork.blood.controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sds.mvcframerwork.blood.model.BloodManager;
 
@@ -41,16 +42,25 @@ public class BloodController extends HttpServlet{
 		//세션은 자바의 컬렉션 프레임웍 중  Map  을 상속받기 때문에 key-value의 
 		//쌍으로 데이터를 모아서 처리함 
 		
+		//세션보다도 훨씬 오래 scope 범위가 넓은 (오래 사는 객체)  application 내장객체에 담아보자 
+		//ServletContext application=request.getServletContext();
+		//application.setAttribute("msg", msg);
+		
 		//HttpSession session=request.getSession();
 		//session.setAttribute("msg", msg);
 		
-		//세션보다도 훨씬 오래 scope 범위가 넓은 (오래 사는 객체)  application 내장객체에 담아보자 
-		ServletContext application=request.getServletContext();
-		application.setAttribute("msg", msg);
-		
+		//현재 요청에 대해 응답을 바로 하지말고, 서버상에 존재하는 또 다른 서블릿 or jsp(서블릿)
+		//에게 요청을 전달해보자, 응답을 하지 않는 동안인 request, response는 죽지 않으므로, 
+		//전달할 데이터가 있다면 request에게 심어놓자!!
+		request.setAttribute("msg", msg);
+
 		//누가 결과를 보여줄지 결정 , 즉 어떤 파일을 View로 할지 결정	
-		response.sendRedirect("/model2/blood/result.jsp");  // location.href="" 를 응답정보로 보내는 것과 같다
-												//클라이언트 웹브라우저로 하여금 지정한 url로 재접속하라는 뜻
+		//response.sendRedirect("/model2/blood/result.jsp");  // location.href="" 를 응답정보로 보내는 것과 같다
+		//클라이언트 웹브라우저로 하여금 지정한 url로 재접속하라는 뜻
+		
+		//포워딩을 위한 객체가 바로 RequestDispatcher 이다 
+		RequestDispatcher dis = request.getRequestDispatcher("/model2/blood/result.jsp");
+		dis.forward(request, response);		
 	}
 }
 
