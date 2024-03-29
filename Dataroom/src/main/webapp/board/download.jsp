@@ -12,7 +12,6 @@
 	//application 내장 객체는 javaee api 에서의 자료형은 ServletContext 이다
 	String realPath = application.getRealPath("/data/"); 
 	File file = new File(realPath+filename);
-	
 	FileInputStream fis=new FileInputStream(file);
 	//out.print(realPath+filename);
 	
