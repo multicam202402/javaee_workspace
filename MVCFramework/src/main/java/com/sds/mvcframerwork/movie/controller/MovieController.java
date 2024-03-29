@@ -4,16 +4,16 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sds.mvcframerwork.controller.Controller;
 import com.sds.mvcframerwork.movie.model.MovieManager;
 
 //영화에 대한 판단 요청을 처리하는 컨트롤러  jsp로도 컨트롤러를 정의할 수 있지만, 
 //javaEE의 개발 패턴 중 하나인 model2 방식에 의하면 jsp는 View로써 사용되는게 더 효율적임
 //왜?? jsp는 html과 섞어 쓸 수 있으니깐...
-public class MovieController{
+public class MovieController implements Controller{
 	MovieManager manager = new MovieManager();
 	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

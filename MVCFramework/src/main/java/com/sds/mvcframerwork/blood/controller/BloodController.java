@@ -4,12 +4,11 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.sds.mvcframerwork.blood.model.BloodManager;
+import com.sds.mvcframerwork.controller.Controller;
 
 /*
  * MVC 패턴(개발방법론)을 JavaEE로 구현한 개발 방식을 가리켜 Model2 방식이라 한다 
@@ -20,7 +19,7 @@ import com.sds.mvcframerwork.blood.model.BloodManager;
  * 3) C : 클라이언트 요청을 받을 수 있어야 하고 + 웹서버에서 실행될 수 있어야 하고 + 자바의 기술을 이해
  * 	         위 3조건을 만족하는 기술은 서블릿밖에 없다(jsp도 할 수는 있지만 이미 View 에 사용되고 있으므로 제외) 
  * */
-public class BloodController{
+public class BloodController implements Controller{
 	BloodManager manager=new BloodManager();
 	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

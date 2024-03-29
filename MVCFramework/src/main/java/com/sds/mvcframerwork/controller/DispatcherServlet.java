@@ -6,13 +6,11 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sds.mvcframerwork.blood.controller.BloodController;
-import com.sds.mvcframerwork.movie.controller.MovieController;
 
 //모델2 방식 기반으로 어플리케이션을 구축할 경우, 모든 클라이언트의 요청마다 
 //1:1 대응하는 컨트롤러를 매핑하게 되면,  web.xml의 매핑관리가 힘들어 진다..
@@ -43,7 +41,19 @@ public class DispatcherServlet extends HttpServlet{
 		props = new Properties(); //어떤 문자열 데이터가 key=value로 구성되어 있을경우 
 												//key를 이용하여  value값을 접근할 수 있는 능력을 가진 객체
 		try {
-			fis = new FileInputStream("D:/javaee_workspace/MVCFramework/src/main/webapp/WEB-INF/config.properties");
+			//web.xml에 명시된 param 이름으로 접근
+			String value = config.getInitParameter("contextConfigLocation");
+			System.out.println(value);
+			
+			//아래의 스트림을 생성하기 위해서는 /WEB-INF/config.properties 경로만으로는 부족하다
+			//따라서 플랫폼의 환경에 따른 풀경로를 조사하여, 스트림의 매개변수에 들어갈 경로를 만들어내자
+			
+			//ServletConfig 객체는 application 내장객체의 자료형인 ServletContext를 얻을 수 도 있다
+			ServletContext context= config.getServletContext(); 
+			String fullPath = context.getRealPath(value);
+			System.out.println(fullPath);
+			
+			fis = new FileInputStream(fullPath);
 			props.load(fis); //Properties 객체가 파일의 내용을 인식하는 시점임..
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,10 +94,15 @@ public class DispatcherServlet extends HttpServlet{
 			
 			//static 영역에 올리는 것만으로는 하위 컨트롤러를 동작시킬 수 없다, 하위 컨트롤러가 보유한 
 			//메서드가 인스턴스 메서드이기 때문에, 반드시 하위 컨트롤러들을 heap 으로 올리자 
-			Object obj = controllerClass.newInstance();//new  연산자를 호출하는 효과와 같다, 즉 인스턴스 생성
+			Controller obj =(Controller)controllerClass.newInstance();//new  연산자를 호출하는 효과와 같다, 즉 인스턴스 생성
+			obj.execute(request, response); //다형성이 적용됨..
+			//분명 자료형은 부모형인데, 동작은 자식으로 동작하기 때문에, 모습이 다형적이라고 해서 
+			//다형성(polymorphism)이라 한다
+			
 			//obj.execute(); //Object  클래스는 최상위 클래스이므로, execute() 메서드를 가지지 않는다
-			MovieController controller=  (MovieController)obj;
-			BloodController controller=  (BloodController)obj;
+			//MovieController controller=  (MovieController)obj;
+			//BloodController controller=  (BloodController)obj;
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {

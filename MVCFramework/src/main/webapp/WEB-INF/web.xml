@@ -23,8 +23,8 @@
 			에 명시된 String 데이터를 서블릿에게 전달할 수 있다
 		 -->
 		<init-param>
-			<param-name></param-name>
-			<param-value></param-value>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config.properties</param-value>
 		</init-param>
 	</servlet>
 	
