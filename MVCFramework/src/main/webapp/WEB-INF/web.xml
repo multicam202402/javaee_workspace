@@ -13,24 +13,16 @@
 		<welcome-file>default.htm</welcome-file>
 	</welcome-file-list>
 	
-	<!-- 혈액형 요청을 처리하는 컨트롤러 매핑 -->
+	<!-- 유지보수성을 높이기 위해, 모든 요청을 오직 하나의 서블릿이 받게 되며, 
+		이 서블릿 클래스의 대한 매핑을 작성
+	-->
 	<servlet>
-		<servlet-name>bloodController</servlet-name>
-		<servlet-class>com.sds.mvcframerwork.blood.controller.BloodController</servlet-class>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>com.sds.mvcframerwork.controller.DispatcherServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>bloodController</servlet-name>
-		<url-pattern>/blood</url-pattern>
-	</servlet-mapping>
-	
-	<!-- 영화 요청을 처리하는 컨트롤러 매핑 -->
-	<servlet>
-		<servlet-name>movieController</servlet-name>
-		<servlet-class>com.sds.mvcframerwork.movie.controller.MovieController</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>movieController</servlet-name>
-		<url-pattern>/movie</url-pattern>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
