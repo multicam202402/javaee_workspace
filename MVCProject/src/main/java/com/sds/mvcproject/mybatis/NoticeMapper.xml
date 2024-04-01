@@ -14,7 +14,7 @@
 	
 	<!-- 한건 수정  -->
 	<update id="update" parameterType="com.sds.mvcproject.notice.model.Notice">
-		update notice title=#{title}, writer=#{writer}, content=#{content} 
+		update notice set title=#{title}, writer=#{writer}, content=#{content} 
 		where notice_idx=#{notice_idx}
 	</update>
 
@@ -23,6 +23,7 @@
 	<delete id="delete" parameterType="int">
 		delete notice where notice_idx=#{notice_idx}
 	</delete>
+	
 </mapper>
 
 
