@@ -25,6 +25,13 @@ $(function(){
 			edit();
 		}
 	});
+	
+	$("#bt_del").click(function(){
+		if(confirm("삭제하시겠어요?")){
+			location.href="/board/delete.do?notice_idx=<%=notice.getNotice_idx()%>";
+		}
+	});
+	
 });
 
 </script>
