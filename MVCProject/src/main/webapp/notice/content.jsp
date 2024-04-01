@@ -1,23 +1,15 @@
 <%@page import="com.sds.mvcproject.notice.model.Notice"%>
-<%@page import="com.sds.mvcproject.notice.model.NoticeDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%! NoticeDAO noticeDAO = new NoticeDAO(); %>
 <%
-	//상세내용을 채워넣기 위해, 게시물 1건을 화면에 출력 
-	String notice_idx = request.getParameter("notice_idx");
-
-	Notice notice = noticeDAO.select(Integer.parseInt(notice_idx)); //게시물 1건 반환
+	Notice notice =(Notice)request.getAttribute("notice");//요청객체에 심어진 DTO꺼내기
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상세보기</title>
-
-<%@ include file="/inc/header_link.jsp" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-
-//동기 방식의 전송
 function edit(){
 	$("form").attr({
 		action:"/notice/edit", //서블릿에게 요청할 예정  

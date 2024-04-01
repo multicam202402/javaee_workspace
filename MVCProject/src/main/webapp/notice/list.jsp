@@ -111,7 +111,7 @@
 		       <tr>
 		         <td><%=num-- %></td>
 		         <td>
-		         	<a href="/notice/content.jsp?notice_idx=<%=notice.getNotice_idx()%>">
+		         	<a href="/board/detail.do?notice_idx=<%=notice.getNotice_idx()%>">
 		         		<%=notice.getTitle() %>
 		         	</a>
 		         </td>

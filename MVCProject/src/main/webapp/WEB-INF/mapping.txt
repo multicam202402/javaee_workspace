@@ -5,3 +5,4 @@
 /test.do=com.sds.mvcproject.controller.TestController
 /board/list.do=com.sds.mvcproject.controller.ListController
 /board/regist.do=com.sds.mvcproject.controller.RegistController
+/board/detail.do=com.sds.mvcproject.controller.DetailController
