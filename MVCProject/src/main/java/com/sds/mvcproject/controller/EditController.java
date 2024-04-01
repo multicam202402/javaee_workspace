@@ -17,7 +17,7 @@ public class EditController implements Controller{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//파라미터 받기
-		request.setCharacterEncoding("utf-8");
+		//request.setCharacterEncoding("utf-8");
 		String title=request.getParameter("title");
 		String writer=request.getParameter("writer");
 		String content=request.getParameter("content");

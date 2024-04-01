@@ -18,7 +18,7 @@ public class RegistController implements Controller{
 		//3단계: 알맞는  모델 객체에게 일 시키기 
 		
 		//파라미터 받기
-		request.setCharacterEncoding("utf-8");//파라미터 문자 깨지지 않도록
+		//request.setCharacterEncoding("utf-8");//파라미터 문자 깨지지 않도록
 		
 		String title=request.getParameter("title");
 		String writer=request.getParameter("writer");
