@@ -1,0 +1,5 @@
+# key와  value의 쌍으로 요청을 처리하는 컨트롤러 매핑해 놓은 파일
+
+
+#요청을 처리할 하위 컨트롤러 매핑
+/test.do=com.sds.mvcproject.controller.TestController
