@@ -142,7 +142,38 @@ public class NoticeDAO {
 		return result;
 	}
 	
+	
+	//한건 수정하기
+	public int update(Notice notice) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int result = 0;
+		
+		con=poolManager.getConnection();
+		String sql="update notice set title=? , writer=?, content=? where notice_idx=?";
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, notice.getTitle());
+			pstmt.setString(2, notice.getWriter());
+			pstmt.setString(3, notice.getContent());
+			pstmt.setInt(4, notice.getNotice_idx()); //notice_idx 숫자 
+			result = pstmt.executeUpdate(); //쿼리실행
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			poolManager.release(con, pstmt);
+		}
+		return result;
+	}
+	
+	
 }
+
+
+
+
+
 
 
 

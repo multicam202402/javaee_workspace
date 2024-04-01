@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function edit(){
 	$("form").attr({
-		action:"/notice/edit", //서블릿에게 요청할 예정  
+		action:"/board/edit.do", //서블릿에게 요청할 예정  
 		method:"post"
 	});
 	
@@ -47,6 +47,8 @@ $(function(){
 			</div>
 		
 		<form class="form-horizontal">
+		<input type="hidden" name="notice_idx" value="<%=notice.getNotice_idx()%>">
+		
 		<div class="card-body">
 		
 		<div class="form-group row">
