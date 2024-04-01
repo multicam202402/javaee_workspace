@@ -3,6 +3,7 @@ package com.sds.mvcproject.controller;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 import javax.servlet.ServletConfig;
@@ -87,8 +88,10 @@ public class DispatcherServlet extends HttpServlet{
 			Class controllerClass = Class.forName(value);//문자열로 지정한 클래스를 로드
 			//인스턴스 1개 만들기(new 연산자만 인스턴스를 만들 수 있는 것이 아니라, Class 클래스에는
 			
+			
 			//인스턴스를 생성시켜주는 메서드를 지원한다)
 			Controller controller=(Controller)controllerClass.newInstance();
+			
 			controller.execute(request, response);
 			
 		} catch (ClassNotFoundException e) {
@@ -96,6 +99,12 @@ public class DispatcherServlet extends HttpServlet{
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  catch (SecurityException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

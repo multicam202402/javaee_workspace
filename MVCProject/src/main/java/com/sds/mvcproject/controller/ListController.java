@@ -28,8 +28,11 @@ public class ListController implements Controller{
 		//아직 응답하지 않았다면  request, response가 살아있으므로, 
 		//request 객체에 noticeList을 담아서, View 담당인 jsp에게 포워딩하자!!
 		//포워딩을 담당하는 객체인 RequestDispatcher 객체를 얻기!
-		RequestDispatcher dis=request.getRequestDispatcher("/notice/list.jsp");//포워딩할 주소
+		request.setAttribute("noticeList", noticeList); //포워딩 시 요청객체가 살아있으므로, 
+		//즉 기존 요청 시 생성된 객체가 여전히 유지되고 있으므로, 이 객체에 원하는 데이터를 심어놓자
 		
+		RequestDispatcher dis=request.getRequestDispatcher("/notice/list.jsp");//포워딩할 주소
+		dis.forward(request, response); //뷰 페이지로 포워딩 
 		
 	}
 					

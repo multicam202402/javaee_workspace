@@ -12,8 +12,7 @@
 	페이징 처리의 가장 근본이 되는 데이터는 총 레코드 수이다..이유는? 레코드가 존재해야 분할하던
 	말던 하지...
 	*/
-	
-	List<Notice> boardList =null;// 포워딩을 통해 전달받은 리스트
+	List<Notice> boardList =(List)request.getAttribute("noticeList");// 포워딩을 통해 전달받은 리스트
 	
 	int totalRecord=boardList.size(); //총 레코드 수
 	int pageSize=10;//한 페이지당 10건씩 보여주기
@@ -57,6 +56,7 @@
 		color:red;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	//글쓰기 폼 요청 
 	$(function(){
