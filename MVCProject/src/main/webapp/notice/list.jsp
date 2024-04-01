@@ -1,10 +1,6 @@
 <%@page import="com.sds.mvcproject.notice.model.Notice"%>
 <%@page import="java.util.List"%>
-<%@page import="com.sds.mvcproject.notice.model.NoticeDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%! 
-	NoticeDAO noticeDAO = new NoticeDAO();
-%>
 <%
 	/*
 	읽혀진 데이터들의 양이 많을 경우, 하나의 페이지내에서 모두~ 보여주려고 하면, 스크롤이 생겨
@@ -17,7 +13,7 @@
 	말던 하지...
 	*/
 	
-	List<Notice> boardList = noticeDAO.selectAll();
+	List<Notice> boardList =null;// 포워딩을 통해 전달받은 리스트
 	
 	int totalRecord=boardList.size(); //총 레코드 수
 	int pageSize=10;//한 페이지당 10건씩 보여주기
@@ -52,7 +48,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="/inc/header_link.jsp" %>
 
 <style type="text/css">
 	/*우리만의 스타일 클래스를 정의해보자  */

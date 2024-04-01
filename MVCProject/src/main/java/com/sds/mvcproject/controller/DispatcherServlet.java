@@ -23,6 +23,12 @@ import javax.servlet.http.HttpServletResponse;
  * */ 
 public class DispatcherServlet extends HttpServlet{
 	
+	//실행중인 프로그램이 텍스트파일을 읽어야 들어야 하므로, 파일입력스트림을 사용하자 
+	//읽어들인 데이터를 대상으로  key, value를 구분할 수 있는 능력이 있는 자바의 객체를
+	//사용해본다(java.util 패키지에 들어있는 Properties 를 이용해본다 - Map의 자식)
+	FileInputStream fis=null;
+	Properties props=null;
+	
 	//서블릿이 요청을 분석할때 필요한 파일이 이미 로드되어 있어야 하므로, 서블릿의 인스턴스 생성시 
 	//서블릿의 초기화를 담당하는  init에서 파일을 로드해보자 
 	public void init(ServletConfig config) throws ServletException {
@@ -36,11 +42,6 @@ public class DispatcherServlet extends HttpServlet{
 		String realPath = application.getRealPath(contextConfigLocation);
 		System.out.println("어플리케이션 내의 지정한 디렉토리의 실제 경로는 "+realPath);
 		
-		//실행중인 프로그램이 텍스트파일을 읽어야 들어야 하므로, 파일입력스트림을 사용하자 
-		//읽어들인 데이터를 대상으로  key, value를 구분할 수 있는 능력이 있는 자바의 객체를
-		//사용해본다(java.util 패키지에 들어있는 Properties 를 이용해본다 - Map의 자식)
-		FileInputStream fis=null;
-		Properties props=null;
 		
 		try {
 			fis = new FileInputStream(realPath); //스트림 생성(이 시점부터 읽을 수 있다)
@@ -77,10 +78,47 @@ public class DispatcherServlet extends HttpServlet{
 		String uri = request.getRequestURI();
 		System.out.println("클라이언트의 요청 uri는 "+uri);
 		
+		String value = props.getProperty(uri); //uri를 key로 사용한, value값 접근
+		System.out.println(uri+"와 매핑되는 value값은 "+value);
+		
+		//value로 반환된 하위 컨트롤러의 경로는 실제 클래스가 아닌 단순한 문자열에 불과하다..
+		//따라서 실제 클래스를 Load도 하고 인스턴스도 생성하자 
+		try {
+			Class controllerClass = Class.forName(value);//문자열로 지정한 클래스를 로드
+			//인스턴스 1개 만들기(new 연산자만 인스턴스를 만들 수 있는 것이 아니라, Class 클래스에는
+			
+			//인스턴스를 생성시켜주는 메서드를 지원한다)
+			Controller controller=(Controller)controllerClass.newInstance();
+			controller.execute(request, response);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
 	}
 	
+	//서블릿이 소멸될때, 생성된 스트림도 함께 제거하자 
+	@Override
+	public void destroy() {
+		if(fis !=null) {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }
+
+
+
 
 
 

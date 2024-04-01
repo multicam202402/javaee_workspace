@@ -3,3 +3,4 @@
 
 #요청을 처리할 하위 컨트롤러 매핑
 /test.do=com.sds.mvcproject.controller.TestController
+/board/list.do=com.sds.mvcproject.controller.ListController
