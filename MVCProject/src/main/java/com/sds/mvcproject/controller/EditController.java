@@ -39,11 +39,18 @@ public class EditController implements Controller{
 		//해결책? 요청을 유지하면서 즉 포워딩하여 DTO를 가지고 가자 content.jsp로... 
 		//포워딩 처리하자 
 		request.setAttribute("notice", notice);
-		RequestDispatcher dis = request.getRequestDispatcher("/notice/content.jsp"); //상세페이지로 포워딩
-		dis.forward(request, response); //포워딩 시작
-		
+		//RequestDispatcher dis = request.getRequestDispatcher("/notice/content.jsp"); //상세페이지로 포워딩
+		//dis.forward(request, response); //포워딩 시작
 	}
-
+	
+	//글 수정 후, 보여질 페이지에 대한 매핑 키 값 반환
+	public String getViewName() {
+		return "/view/notice/detail";
+	}
+	
+	public boolean isForward() {
+		return true;
+	}
 }
 
 

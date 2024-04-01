@@ -18,9 +18,18 @@ public class DeleteController implements Controller{
 		int result = noticeDAO.delete(notice_idx); //삭제처리
 		
 		//저장할 결과가 없으므로, 포워딩할 이유가 없다..따라서 클라이언트로 하여금 목록을 요청하도록 명령 
-		response.sendRedirect("/board/list.do");
+		//response.sendRedirect("/board/list.do");
 	}
-
+	
+	@Override
+	public String getViewName() {
+		return "/view/notice/delete";
+	}
+	
+	//요청을 유지할 필요 없으며, 새로 접속을 유도해야 한다..
+	public boolean isForward() {
+		return false;
+	}
 }
 
 

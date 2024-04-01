@@ -96,9 +96,17 @@ public class DispatcherServlet extends HttpServlet{
 			//분석 후 하위 컨트롤러에게 요청 전달 (3단계, 4단계는 하위 컨트롤러가 담당 ) 
 			controller.execute(request, response);
 			
-			//5단계
-			RequestDispatcher dis=request.getRequestDispatcher("/view/notice/list");//포워딩할 주소
-			dis.forward(request, response); //뷰 페이지로 포워딩 
+			//5단계(포워딩 하거나, 리다이렉트 하거나)
+			//어떤 뷰이름을 통해서, jsp나 url 링크를 사용할지 하위 컨트롤들에게 물어보자 
+			String viewPage = props.getProperty(controller.getViewName());
+			System.out.println(uri+" 요청에 대해 보여줄 결과 URL은 "+viewPage);
+			
+			if(controller.isForward()){
+				RequestDispatcher dis=request.getRequestDispatcher(viewPage);//포워딩할 주소
+				dis.forward(request, response); //뷰 페이지로 포워딩
+			}else {
+				response.sendRedirect(viewPage);
+			}
 			
 			
 		} catch (ClassNotFoundException e) {

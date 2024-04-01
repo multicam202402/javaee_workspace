@@ -12,3 +12,5 @@
 #뷰 매핑 
 /view/notice/list=/notice/list.jsp
 /view/notice/detail=/notice/content.jsp
+/view/notice/regist=/board/list.do
+/view/notice/delete=/board/list.do

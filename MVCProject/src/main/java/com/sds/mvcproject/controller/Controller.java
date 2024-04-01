@@ -16,6 +16,9 @@ public interface Controller {
 	//모든 하위 컨트롤러가 반드시 반환해야할 뷰 페이지명 반환
 	public String getViewName();
 	
+	//포워딩할지 리다이렉트 할 지 여부를 반환하는 메서드 정의 
+	public boolean isForward();
+	
 }
 
 

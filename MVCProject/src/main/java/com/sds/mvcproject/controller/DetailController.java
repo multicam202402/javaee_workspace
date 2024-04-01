@@ -32,7 +32,12 @@ public class DetailController implements Controller{
 		return "/view/notice/detail";
 	}
 	
+	public boolean isForward() {
+		return true;
+	}
+	
 }
+
 
 
 

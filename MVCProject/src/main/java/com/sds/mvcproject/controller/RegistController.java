@@ -43,15 +43,21 @@ public class RegistController implements Controller{
 			//RequestDispatcher dis=request.getRequestDispatcher("/notice/list.jsp"); 
 			//dis.forward(request, response);//포워딩
 			//클라이언트로 하여금, 목록을 요청하도록 명령 
-			response.sendRedirect("/board/list.do");//지정한 url로 재접속을 유도...
+			//response.sendRedirect("/board/list.do");//지정한 url로 재접속을 유도...
 		}else {
 			//실패인 경우엔 실패 메세지..
 			System.out.println("등록 실패");
 		}
-		
-		
+	}
+	
+	//글쓰기 후, 보여질 뷰페이지 매핑 값 반환
+	public String getViewName() {
+		return "/view/notice/regist";
 	}
 
+	public boolean isForward() {
+		return false;
+	}
 }
 
 
