@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -92,7 +93,13 @@ public class DispatcherServlet extends HttpServlet{
 			//인스턴스를 생성시켜주는 메서드를 지원한다)
 			Controller controller=(Controller)controllerClass.newInstance();
 			
+			//분석 후 하위 컨트롤러에게 요청 전달 (3단계, 4단계는 하위 컨트롤러가 담당 ) 
 			controller.execute(request, response);
+			
+			//5단계
+			RequestDispatcher dis=request.getRequestDispatcher("/view/notice/list");//포워딩할 주소
+			dis.forward(request, response); //뷰 페이지로 포워딩 
+			
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

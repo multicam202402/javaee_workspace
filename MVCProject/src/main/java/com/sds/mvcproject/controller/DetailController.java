@@ -23,8 +23,13 @@ public class DetailController implements Controller{
 		//4단계: 결과jsp에 가져갈 것이 있다면, 결과 저장 (request 에 저장, 포워딩 필요)
 		//notice DTO를  결과 jsp인 content.jsp 까지살려 가야하므로, request에 저장 및 포워딩 처리하자 
 		request.setAttribute("notice", notice); //DTO를  request에 저장 
-		RequestDispatcher dis = request.getRequestDispatcher("/notice/content.jsp"); //포워딩 할 주소
-		dis.forward(request, response); //포워딩 시작
+		//RequestDispatcher dis = request.getRequestDispatcher("/notice/content.jsp"); //포워딩 할 주소
+		//dis.forward(request, response); //포워딩 시작
+	}
+	
+	//상세보기 요청시 사용할 매핑 key값 
+	public String getViewName() {
+		return "/view/notice/detail";
 	}
 	
 }

@@ -31,16 +31,12 @@ public class ListController implements Controller{
 		request.setAttribute("noticeList", noticeList); //포워딩 시 요청객체가 살아있으므로, 
 		//즉 기존 요청 시 생성된 객체가 여전히 유지되고 있으므로, 이 객체에 원하는 데이터를 심어놓자
 		
-		RequestDispatcher dis=request.getRequestDispatcher("/notice/list.jsp");//포워딩할 주소
-		dis.forward(request, response); //뷰 페이지로 포워딩 
-		
 	}
-					
-	
-	
-	
-	
-	
+		
+	//목록 요청 시, 보여줄 페이지의 이름 (주의 실제 jsp명을 쓰지 않고, 매핑파일에서의 key값을 사용하자)
+	public String getViewName() {
+		return "/view/notice/list";//대표 컨트롤러가 이 문자열을 이용할 수 있도록...
+	}
 	
 	
 }

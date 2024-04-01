@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 public interface Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
+	//모든 하위 컨트롤러가 반드시 반환해야할 뷰 페이지명 반환
+	public String getViewName();
+	
 }
 
 
