@@ -22,6 +22,11 @@
 		select * from board order by board_idx desc
 	</select>
 	
+	<!-- 한건 가져오기 -->
+	<select id="select" parameterType="int" resultType="com.sds.model2app.domain.Board">
+		select * from board where board_idx=#{board_idx}
+	</select>
+	
 </mapper>
 
 

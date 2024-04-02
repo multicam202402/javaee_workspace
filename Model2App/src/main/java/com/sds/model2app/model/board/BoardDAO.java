@@ -37,14 +37,19 @@ public class BoardDAO {
 		
 		sqlSession=manager.getSqlSession();
 		list = sqlSession.selectList("com.sds.model2app.domain.Board.selectAll");
+		manager.release(sqlSession);
 		return list;
 	}
 	
 	
 	//레코드 한건 가져오기 
-	public Board select() {
+	public Board select(int board_idx) {
 		Board board = null;
+		SqlSession sqlSession=null;
 		
+		sqlSession = manager.getSqlSession();
+		board = sqlSession.selectOne("com.sds.model2app.domain.Board.select", board_idx);
+		manager.release(sqlSession);
 		return board;
 	}
 }
