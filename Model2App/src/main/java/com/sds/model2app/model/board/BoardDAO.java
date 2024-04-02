@@ -21,7 +21,7 @@ public class BoardDAO {
 		sqlSession = manager.getSqlSession(); //팩토리로부터 쿼리수행 세션 얻기!
 		
 		//쿼리실행
-		result = sqlSession.insert("com.sds.model2app.domain.Board.insert", board);
+		result = sqlSession.insert("Board.insert", board);
 		sqlSession.commit(); //mybatis는 setAutoCommit()이 false로 되어 있슴
 		
 		//쿼리수행 객체 반납
@@ -36,7 +36,7 @@ public class BoardDAO {
 		SqlSession sqlSession=null;	
 		
 		sqlSession=manager.getSqlSession();
-		list = sqlSession.selectList("com.sds.model2app.domain.Board.selectAll");
+		list = sqlSession.selectList("Board.selectAll");
 		manager.release(sqlSession);
 		return list;
 	}
@@ -48,7 +48,7 @@ public class BoardDAO {
 		SqlSession sqlSession=null;
 		
 		sqlSession = manager.getSqlSession();
-		board = sqlSession.selectOne("com.sds.model2app.domain.Board.select", board_idx);
+		board = sqlSession.selectOne("Board.select", board_idx);
 		manager.release(sqlSession);
 		return board;
 	}
