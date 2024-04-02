@@ -19,6 +19,7 @@
 /view/board/regist=/board/list.do
 /view/board/list=/board/list.jsp
 /view/board/detail=/board/content.jsp
+/view/board/update=/board/content.jsp
 
 #에러 페이지 매핑 
 /view/board/error=/board/error.jsp

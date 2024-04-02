@@ -12,6 +12,7 @@ import com.sds.model2app.model.board.BoardDAO;
 //수정 요청을 처리하는 하위 컨트롤러 
 public class EditController implements Controller{
 	BoardDAO boardDAO=new BoardDAO();
+	String viewName;
 	
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//3단계: 알맞는 모델 객체에 일 시키기 
@@ -36,15 +37,25 @@ public class EditController implements Controller{
 		//수정 시키기...
 		int result = boardDAO.update(board);
 		
-		
+		if(result>0) {
+			//상세 페이지 보여주기 
+			//재 접속 시  '/board/detail.do?board_idx=5' uri는 매핑에 적용할 수 없기 때문에 , 요청을
+			//유지한 채로 content.jsp에 포워딩한다 
+			request.setAttribute("board", board);
+			viewName="/view/board/update";
+		}else {
+			//에러 페이지 보여주기 ( 포워딩) 
+			request.setAttribute("msg", "글등록 에러");
+			viewName="/view/board/error";
+		}
 	}
 	
 	public String getViewName() {
-		return null;
+		return viewName;
 	}
 	
 	public boolean isForward() {
-		return false;
+		return true;
 	}
 	
 }
