@@ -25,10 +25,10 @@ public class Test {
 	public static void main(String[] args) {
 		//마이바티스 관련설정파일을 읽어들여, 자바코드에서 mybatis를 사용하는 코드 
 		
-		String resource = "com/sds/model2app/mybatis/mybatis-config.xml";
 		
 		try {
 			
+			String resource = "com/sds/model2app/mybatis/mybatis-config.xml";
 			//마이바티스 설정  xml에 접근하여 스트림을 생성하기
 			InputStream inputStream = Resources.getResourceAsStream(resource);
 			
