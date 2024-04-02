@@ -30,8 +30,7 @@ public class RegistController implements Controller{
 
 	@Override
 	public String getViewName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "에러페이지";
 	}
 
 	@Override
