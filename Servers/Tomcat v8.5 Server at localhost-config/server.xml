@@ -60,7 +60,34 @@
   		즉 자바 코드안에 자원을 두는 것이 아니라, server.xml 에서 설정을 통해 커넥션풀을 지원한다.. 
   		왜? 유지보수성을 높기 때문에 그렇다..  
   	-->
-  	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" initialSize="0" maxIdle="20" maxTotal="20" maxWaitMillis="5000" minIdle="5" name="jndi/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="seshop"/>
+  	<Resource auth="Container" 
+	  	name="jndi/oracle" 
+	  	driverClassName="oracle.jdbc.driver.OracleDriver" 
+	  	initialSize="0" 
+	  	maxIdle="20" 
+	  	maxTotal="20" 
+	  	maxWaitMillis="5000" 
+	  	minIdle="5" 
+	  	password="1234" 
+	  	type="javax.sql.DataSource" 
+	  	url="jdbc:oracle:thin:@localhost:1521:XE" 
+	  	username="seshop"/>
+
+
+  	  	<Resource auth="Container" 
+		  	name="jndi/mysql" 
+		  	driverClassName="com.mysql.jdbc.Driver" 
+		  	type="javax.sql.DataSource" 
+		  	url="jdbc:mysql://localhost:3306/javaee?characterEncoding=utf-8" 
+		  	username="root"
+		  	password="" 
+		  	initialSize="0" 
+		  	maxIdle="20" 
+		  	maxTotal="20" 
+		  	maxWaitMillis="5000" 
+		  	minIdle="5" 
+		  	/>
+  	
   	
   </GlobalNamingResources>
   

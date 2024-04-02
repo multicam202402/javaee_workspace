@@ -62,6 +62,18 @@
 					<button class="btn btn-primary">글등록</button>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="5">
+					<ul class="pagination">
+						<%for(int i=pager.getFirstPage(); i<=pager.getLastPage();i++){%>
+						<%if(i>pager.getTotalPage())break; //내가 가진 총페이지 수를 넘어서면.. %>
+						<li class="page-item <%if(pager.getCurrentPage()==i){%>active<%}%>">
+							<a class="page-link" href="/board/list.do?currentPage=<%=i%>"><%=i%></a>
+						</li>
+						<%}%>
+					</ul>					
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </body>

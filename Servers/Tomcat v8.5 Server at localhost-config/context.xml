@@ -20,7 +20,13 @@
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
-
+	
+	<!-- GlobalNamingResources 에 등록된 JNDI는 반드시 이 xml에서 ResourceLink 추가 해야함  -->
+   <ResourceLink 
+		global="jndi/mysql" 
+		name="jndi/mysql"
+		type="javax.sql.DataSource" />
+   
    <ResourceLink 
 		global="jndi/oracle" 
 		name="jndi/oracle"
