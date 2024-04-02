@@ -65,6 +65,19 @@ public class BoardDAO {
 		
 		return result;
 	}
+	
+	//레코드 한건 삭제하기 
+	public int delete(int board_idx) {
+		int result=0;
+		SqlSession sqlSession=null;
+		
+		sqlSession = manager.getSqlSession();
+		result=sqlSession.delete("Board.delete", board_idx);
+		sqlSession.commit(); //트랜잭션 commit 
+		manager.release(sqlSession); //반납  
+		
+		return result;
+	}
 }
 
 

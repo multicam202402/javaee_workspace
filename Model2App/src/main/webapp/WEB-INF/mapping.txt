@@ -21,6 +21,7 @@
 /view/board/list=/board/list.jsp
 /view/board/detail=/board/content.jsp
 /view/board/update=/board/content.jsp
+/view/board/delete=/board/list.do
 
 #에러 페이지 매핑 
 /view/board/error=/board/error.jsp
