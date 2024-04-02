@@ -6,7 +6,10 @@
 <%@ include file="/inc/header.jsp" %>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("textarea").summernote(); //textarea를 편집기로 변신!!
+	$("textarea").summernote({
+		height:300, 
+		placeholder:"내용 입력.."
+	}); //textarea를 편집기로 변신!!
 });
 </script>
 </head>
@@ -14,10 +17,10 @@ $(document).ready(function() {
 <h2>글쓰기 폼</h2>
 	<form action="/action_page.php">
 	    <div class="form-group">
-	        <input type="text" class="form-control" placeholder="Enter email" name="title">
+	        <input type="text" class="form-control" placeholder="제목 입력.." name="title">
 	    </div>
 	    <div class="form-group">
-	        <input type="text" class="form-control" placeholder="Enter password" name="writer">
+	        <input type="text" class="form-control" placeholder="작성자 입력.." name="writer">
 	    </div>
 	    <div class="form-group">
 	        <textarea class="form-control" placeholder="Enter password" name="content"></textarea>

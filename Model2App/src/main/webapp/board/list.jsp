@@ -32,7 +32,7 @@
 			<%} %>
 			<tr>
 				<td colspan="5">
-					<button class="btn-primary">글등록</button>
+					<button class="btn btn-primary">글등록</button>
 				</td>
 			</tr>
 		</tbody>

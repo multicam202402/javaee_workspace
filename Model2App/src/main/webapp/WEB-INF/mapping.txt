@@ -1,0 +1,9 @@
+
+#컨트롤러 매핑
+/test.do=com.sds.model2app.controller.TestController
+
+
+
+
+#뷰매핑
+/view/test=/board/result.jsp
