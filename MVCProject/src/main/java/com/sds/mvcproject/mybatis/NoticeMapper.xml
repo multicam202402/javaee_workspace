@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sds.mvcproject.mybatis.NoticeMapper">
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sds.mvcproject.notice.model.Notice">
 	
 	<!-- 개발자가 mybatis를 사용할 경우, 더이상 java 코드안에 JDBC코드로, SQL문을 작성할 필요없으며
 		mybatis의 xml 에 작성할 수 있다. 
 	 -->
+
 	
 	<!-- 한건 넣기 -->
 	<insert id="insert" parameterType="com.sds.mvcproject.notice.model.Notice">
@@ -25,6 +28,3 @@
 	</delete>
 	
 </mapper>
-
-
-
