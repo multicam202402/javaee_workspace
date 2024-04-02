@@ -49,6 +49,7 @@ public class Test {
 			int result = sqlSession.insert("com.sds.model2app.domain.Board.insert", board);
 			sqlSession.commit();//커밋이 발생함
 			System.out.println(result);
+			sqlSession.close(); //세션 닫기 
 			
 		} catch (IOException e) {
 			e.printStackTrace();
