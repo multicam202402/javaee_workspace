@@ -20,6 +20,14 @@ function edit(){
 	$("form").submit(); //전송
 }
 
+function del(){
+	$("form").attr({
+		action:"/board/delete.do", 
+		method:"post"
+	});
+	$("form").submit(); //전송
+}
+
 $(document).ready(function() {
 	
 	$("textarea").summernote({
@@ -35,7 +43,9 @@ $(document).ready(function() {
 	});
 	//삭제 버튼에 이벤트 연결 
 	$("#bt_del").click(function(){
-		del();
+		if(confirm("삭제하시겠어요?")){
+			del();
+		}
 	});
 	//목록 버튼에 이벤트 연결 
 	$("#bt_list").click(function(){
