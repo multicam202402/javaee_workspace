@@ -52,7 +52,27 @@ public class BoardDAO {
 		manager.release(sqlSession);
 		return board;
 	}
+
+	//레코드 한건 수정하기 
+	public int update(Board board) {
+		int result=0;
+		SqlSession sqlSession=null;
+		
+		sqlSession = manager.getSqlSession();
+		result = sqlSession.update("Board.update", board);
+		sqlSession.commit();
+		manager.release(sqlSession);
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
 
 
 

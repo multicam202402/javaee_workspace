@@ -6,7 +6,7 @@
 /board/regist.do=com.sds.model2app.controller.RegistController
 /board/list.do=com.sds.model2app.controller.ListController
 /board/detail.do=com.sds.model2app.controller.DetailController
-
+/board/edit.do=com.sds.model2app.controller.EditController
 
 
 

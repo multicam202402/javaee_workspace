@@ -12,9 +12,9 @@
 <script type="text/javascript">
 
 //폼의 입력 데이터들을 서버로 전송하자 
-function regist(){
+function edit(){
 	$("form").attr({
-		action:"/board/regist.do", 
+		action:"/board/edit.do", 
 		method:"post"
 	});
 	$("form").submit(); //전송
@@ -29,7 +29,9 @@ $(document).ready(function() {
 	
 	//수정 버튼에 이벤트 연결 
 	$("#bt_edit").click(function(){
-		edit();
+		if(confirm("수정하시겠어요?")){
+			edit();
+		}
 	});
 	//삭제 버튼에 이벤트 연결 
 	$("#bt_del").click(function(){
@@ -46,6 +48,8 @@ $(document).ready(function() {
 <body>
 <h2>글쓰기 폼</h2>
 	<form>
+		<input type="hidden" name="board_idx" value="<%=board.getBoard_idx()%>">
+		
 	    <div class="form-group">
 	        <input type="text" class="form-control" value="<%=board.getTitle() %>" name="title">
 	    </div>
