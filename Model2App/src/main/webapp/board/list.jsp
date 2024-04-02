@@ -1,4 +1,15 @@
+<%@page import="com.sds.model2app.domain.Board"%>
+<%@page import="com.sds.model2app.common.Pager"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%!
+	Pager pager=new Pager();
+%>
+<%
+	List<Board> boardList = (List)request.getAttribute("boardList");
+	//out.print("게시물 수는 "+boardList.size());
+	pager.init(boardList, request); //페이징 처리 알아서 계산
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,13 +39,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%for(int i=1;i<=10;i++){ %>
+			<%
+				//페이지당  List에서의 시작 index
+				int curPos = pager.getCurPos();
+				int num=pager.getNum();
+			%>
+			<%for(int i=1;i<=pager.getPageSize();i++){ %>
+			<%if(num<1)break; //게시물 번호가 1보다 작으면 멈춤 %>
+			<%Board board=boardList.get(curPos++); %>
 			<tr>
-				<td>1</td>
-				<td>제목나올 곳</td>
-				<td>배트맨</td>
-				<td>2024-04-02</td>
-				<td>205</td>
+				<td><%=num--%></td>
+				<td>
+					<a href="/board/detail.do?board_idx=<%=board.getBoard_idx()%>"><%=board.getTitle() %></a>
+				</td>
+				<td><%=board.getWriter() %></td>
+				<td><%=board.getRegdate().substring(0,10) %></td>
+				<td><%=board.getHit() %></td>
 			</tr>
 			<%} %>
 			<tr>

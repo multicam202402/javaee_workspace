@@ -12,6 +12,16 @@
 		insert into board(title, writer, content) values(#{title},#{writer},#{content})
 	</insert>
 	
+	<!-- 모든 레코드 가져오기 
+		resultType의 의미?  select문에 의해 가져온 컬럼값들을 어떤 자바 자료형에 담아야 할지 결정
+		개발자가 rs의 레코드를 자바의 DTO에 담는 과정을  mybatis  가 대신 해준다 
+		즉 매핑 작업을 대신 한다고 하여  mybatis  프레임웍을 SQL mapper 라 한다 
+		즉 sql문과 자바객체와의 매핑을 자동으로 해주는 프레임웍
+	-->
+	<select id="selectAll" resultType="com.sds.model2app.domain.Board">
+		select * from board order by board_idx desc
+	</select>
+	
 </mapper>
 
 

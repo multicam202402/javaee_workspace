@@ -1,5 +1,7 @@
 package com.sds.model2app.model.board;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.sds.model2app.domain.Board;
@@ -27,4 +29,38 @@ public class BoardDAO {
 		
 		return result;
 	}
+	
+	//모든 레코드 가져오기 
+	public List selectAll() {
+		List list=null;
+		SqlSession sqlSession=null;	
+		
+		sqlSession=manager.getSqlSession();
+		list = sqlSession.selectList("com.sds.model2app.domain.Board.selectAll");
+		return list;
+	}
+	
+	
+	//레코드 한건 가져오기 
+	public Board select() {
+		Board board = null;
+		
+		return board;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
