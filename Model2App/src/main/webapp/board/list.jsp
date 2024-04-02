@@ -4,6 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/inc/header.jsp"%>
+<script type="text/javascript">
+	$(function(){
+		$("button").click(function(){
+			location.href="/board/write.jsp";
+		});
+	});
+</script>
 </head>
 <body>
 	<h2>Hoverable Dark Table</h2>
